@@ -21,6 +21,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace API
 {
@@ -69,7 +70,11 @@ namespace API
 
             //app.UseHttpsRedirection();
 
+            app.UseSerilogRequestLogging();
+
             app.UseRouting();
+            app.UseStaticFiles();
+            app.UseCors("AllowAll");
 
             app.UseAuthorization();
 
