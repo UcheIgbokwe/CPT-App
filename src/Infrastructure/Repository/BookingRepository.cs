@@ -28,6 +28,12 @@ namespace Infrastructure.Repository
                 try
                 {
                     using var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
+                    var user = _dbcontext.Users.Where(c => c.Id == bookEntity.UserId).FirstOrDefault();
+
+                    if(user == null)
+                    {
+                        throw new HttpStatusException("User is invalid");
+                    }
                     await AddAsync(bookEntity);
                     
                     transaction.Complete();

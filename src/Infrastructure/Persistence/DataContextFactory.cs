@@ -1,29 +1,30 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Contracts.Domain.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Persistence
 {
     public class DataContextFactory : IDesignTimeDbContextFactory<DataContext>
     {
-        private readonly ConnectionStrings _configs;
-        public DataContextFactory(IOptions<ConnectionStrings> opts)
-        {
-            _configs = opts.Value;
-        }
         public DataContext CreateDbContext(string[] args)
         {
-            var configs = _configs;
-            
-            var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
-            optionsBuilder.UseSqlServer(configs.DefaultConnectionString);
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("connection.json")
+                    .Build();
 
-            return new DataContext(optionsBuilder.Options);
+            var builder = new DbContextOptionsBuilder<DataContext>();
+            var connectionString = configuration.GetConnectionString("DefaultConnectionString");
+            builder.UseSqlServer(connectionString);        
+            
+            return new DataContext(builder.Options);
         }
     }
 }

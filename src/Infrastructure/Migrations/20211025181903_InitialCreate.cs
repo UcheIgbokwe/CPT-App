@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class FirstCreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,9 +16,13 @@ namespace Infrastructure.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     LocationId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TestResult = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    TestResult = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TestDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
-                constraints: table => table.PrimaryKey("PK_Bookings", x => x.Id));
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bookings", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "LocationDetails",
@@ -30,7 +34,10 @@ namespace Infrastructure.Migrations
                     AvailableSpace = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
-                constraints: table => table.PrimaryKey("PK_LocationDetails", x => x.Id));
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LocationDetails", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Users",
@@ -44,7 +51,10 @@ namespace Infrastructure.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
-                constraints: table => table.PrimaryKey("PK_Users", x => x.Id));
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

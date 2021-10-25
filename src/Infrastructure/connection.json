@@ -1,0 +1,6 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnectionString":"workstation id=KeyPadBankingDb.mssql.somee.com;packet size=4096;user id=ucheigbokwe_SQLLogin_1;pwd=ii4m8p4yfz;data source=KeyPadBankingDb.mssql.somee.com;persist security info=False;initial catalog=KeyPadBankingDb"
+  },
+  "AllowedHosts": "*"
+}

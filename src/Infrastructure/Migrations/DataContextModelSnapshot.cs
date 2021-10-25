@@ -32,6 +32,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("TestDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("TestResult")
                         .HasColumnType("nvarchar(max)");
 
