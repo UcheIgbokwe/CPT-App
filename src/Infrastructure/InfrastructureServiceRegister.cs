@@ -1,6 +1,5 @@
 using System;
 using Application.Contracts.Repository;
-using Application.Contracts.Services;
 using Infrastructure.Repository;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,11 +10,11 @@ namespace Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
-            //add scoped interfaces
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>)); 
+            
             services.AddScoped<IUserRepository, UserRepository>();
-            
-            
-
+            services.AddScoped<IBookingRepository, BookingRepository>();
 
             return services;
         }

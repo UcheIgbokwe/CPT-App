@@ -7,7 +7,6 @@ namespace Application.Contracts.Domain.DTO
 {
     public class BookingResponse
     {
-        public int Id { get; set; }
         public int UserId { get; set; }
         public int LocationId { get; set; }
         public string Status { get; set; }

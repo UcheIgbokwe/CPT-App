@@ -8,7 +8,7 @@ namespace Application.Contracts.Repository
     public interface IUnitOfWork
     {
         IUserRepository Users { get; }
-        //IGenericRepository<T> Repository<T>() where T : class;
+        IBookingRepository Bookings { get; }
         Task CompleteAsync();
     }
 }

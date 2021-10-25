@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Application.Behaviours;
 using Application.Contracts.Domain.DTO;
 using Application.Contracts.Repository;
-using Application.Contracts.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

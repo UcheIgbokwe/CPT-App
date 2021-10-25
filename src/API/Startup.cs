@@ -43,15 +43,12 @@ namespace API
             services.Configure<ConnectionStrings>(configs);
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionStrings:DefaultConnectionString").Value));
 
-            //services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
             services.AddScoped<DbContext, DataContext>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>)); 
-            services.AddTransient<IUserRepository, UserRepository>();
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
-            //services.AddInfrastructureServices();
-            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" }));
+            services.AddInfrastructureServices();
+
+            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Covid Test API", Version = "v1" }));
 
             services.AddMediatR(typeof(RegisterUserCommandHandler).GetTypeInfo().Assembly);
             services.AddMediatR(typeof(CreateBookingCommandHandler).GetTypeInfo().Assembly);

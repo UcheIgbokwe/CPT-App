@@ -11,7 +11,7 @@ namespace Infrastructure.Persistence
 {
     public class DataContextFactory : IDesignTimeDbContextFactory<DataContext>
     {
-        private ConnectionStrings _configs;
+        private readonly ConnectionStrings _configs;
         public DataContextFactory(IOptions<ConnectionStrings> opts)
         {
             _configs = opts.Value;
