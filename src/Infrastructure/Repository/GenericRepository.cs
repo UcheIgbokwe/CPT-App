@@ -13,7 +13,8 @@ namespace Infrastructure.Repository
     {
         protected DataContext _dbcontext;
         internal DbSet<T> _dbSet;
-        protected GenericRepository(DataContext dbContext)
+        protected readonly ILogger<T> _logger;
+        public GenericRepository(DataContext dbContext)
         {
             _dbcontext = dbContext;
             _dbSet = dbContext.Set<T>();

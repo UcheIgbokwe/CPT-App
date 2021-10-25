@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Application.Behaviours;
 using Application.Contracts.Repository;
 using Application.Features.Accounts;
+using Application.Features.Booking;
 using FluentValidation;
 using Infrastructure;
 using Infrastructure.Persistence;
@@ -42,15 +43,17 @@ namespace API
             services.AddScoped<DbContext, DataContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>)); 
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             //services.AddInfrastructureServices();
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" }));
 
             services.AddMediatR(typeof(RegisterUserCommandHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(CreateBookingCommandHandler).GetTypeInfo().Assembly);
 
             services.AddValidatorsFromAssemblyContaining(typeof(RegisterUserCommandHandler));
+            services.AddValidatorsFromAssemblyContaining(typeof(CreateBookingCommandHandler));
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));

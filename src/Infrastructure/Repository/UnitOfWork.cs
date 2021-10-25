@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Contracts.Repository;
+using Domain.Models;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -18,13 +19,11 @@ namespace Infrastructure.Repository
         {
             _dbContext = dbContext;
 
-            Users = new UserRepository(dbContext);
+            Users = new UserRepository(_dbContext);
         }
-
         public async Task CompleteAsync()
         {
             await _dbContext.SaveChangesAsync();
         }
-
     }
 }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace Application.Contracts.Domain.DTO
 {
-    public class Booking
+    public class BookingResponse
     {
         public int Id { get; set; }
         public int UserId { get; set; }
