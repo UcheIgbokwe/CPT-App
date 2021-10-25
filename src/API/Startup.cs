@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Application.Behaviours;
+using Application.Contracts.Domain.Config;
 using Application.Contracts.Repository;
 using Application.Features.Accounts;
 using Application.Features.Booking;
@@ -38,8 +39,11 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
+            var configs = Configuration.GetSection("ConnectionStrings");
+            services.Configure<ConnectionStrings>(configs);
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionStrings:DefaultConnectionString").Value));
+
+            //services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
             services.AddScoped<DbContext, DataContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>)); 

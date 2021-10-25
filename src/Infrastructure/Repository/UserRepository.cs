@@ -32,18 +32,15 @@ namespace Infrastructure.Repository
                     await AddAsync(userEntity);
                     
                     transaction.Complete();
-                    _logger.LogInformation("Log works");
                     return userEntity.ToUser();
                 }
                 catch (TransactionAbortedException ex)
                 {
-                    _logger.LogError($"Error in UserRepository.RegisterUser: {ex.Message}");
                     throw new InvalidResponseException(ex.Message);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error in UserRepository.RegisterUser: {ex.Message}");
                 throw new HandleDbException(ex.Message);
             }
         }
