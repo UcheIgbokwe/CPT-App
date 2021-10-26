@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Transactions;
 using Application.Behaviours;
@@ -32,9 +33,31 @@ namespace Infrastructure.Repository
 
                     if(user == null)
                     {
-                        throw new HttpStatusException("User is invalid");
+                        throw new HttpStatusException(HttpStatusCode.NotFound, "User is invalid.");
                     }
+                    if(user.Role != Role.User)
+                    {
+                        throw new HttpStatusException(HttpStatusCode.Unauthorized, "Booking is only avaiable to users.");
+                    }
+
+                    //check if space is available
+                    var availableSpace = _dbcontext.LocationDetails.Where(c => c.Id == bookEntity.LocationId).FirstOrDefault();
+
+                    if(availableSpace == null)
+                    {
+                        throw new HttpStatusException(HttpStatusCode.NotFound, "Location is invalid.");
+                    }
+                    if(availableSpace.AvailableSpace < 1)
+                    {
+                        throw new HttpStatusException(HttpStatusCode.BadRequest, "There is no available space.");
+                    }
+
+                    bookEntity.Status = "Pending";
                     await AddAsync(bookEntity);
+
+                    //reduce the available space
+                    availableSpace.AvailableSpace--;
+                    _dbcontext.LocationDetails.Update(availableSpace);
                     
                     transaction.Complete();
                     return bookEntity.ToBooking();

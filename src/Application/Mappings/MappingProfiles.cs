@@ -17,6 +17,8 @@ namespace Application.Mappings
             CreateMap<User, RegisterUserCommand>().ReverseMap();
             CreateMap<RegisterResponse, User>().ReverseMap();
             CreateMap<Booking, CreateBookingCommand>().ReverseMap();
+            CreateMap<LocationDetail, CreateSpacesCommand>().ReverseMap()
+            .ForMember(d => d.CreatedBy, opt => opt.MapFrom(s => s.UserId));
         }
     }
 }

@@ -11,8 +11,6 @@ namespace Application.Features.Booking
     {
         public int UserId { get; set; }
         public int LocationId { get; set; }
-        public string Status { get; set; }
-        public string TestResult { get; set; }
         public DateTime TestDate { get; set; } 
     }
 

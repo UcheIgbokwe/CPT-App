@@ -14,14 +14,16 @@ namespace Infrastructure.Repository
     {
         private readonly DataContext _dbContext;
         public IUserRepository Users { get; set; }
-
         public IBookingRepository Bookings { get; set; }
+        public ISpacesRepository Spaces { get; set; }
 
         public UnitOfWork(DataContext dbContext)
         {
             _dbContext = dbContext;
 
             Users = new UserRepository(_dbContext);
+            Bookings = new BookingRepository(_dbContext);
+            Spaces = new SpacesRepository(_dbContext);
         }
         public async Task CompleteAsync()
         {

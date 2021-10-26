@@ -20,5 +20,14 @@ namespace Application.Contracts.Domain.Extensions
 
             return newBooking;
         }
+        public static LocationResponse ToSpaces(this LocationDetail space)
+        {
+            LocationResponse newSpace = new();
+            newSpace.AvailableSpace = space.AvailableSpace;
+            newSpace.CreatedAt = space.CreatedAt;
+            newSpace.LocationName = space.LocationName;
+
+            return newSpace;
+        }
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Application.Behaviours;
 using Application.Contracts.Domain.DTO;
-using Application.Features.Accounts;
+using Application.Features.Booking;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,24 +10,24 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class BookingController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public UserController(IMediator mediator)
+        public BookingController(IMediator mediator)
         {
             _mediator = mediator;
             
         }
 
         /// <summary>
-        /// Create User on the management portal.
+        /// Create Booking on the management portal.
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [HttpPost("RegisterUser")]
-        [ProducesResponseType(typeof(RegisterResponse), statusCode: 201)]
-        public async Task<IActionResult> RegisterUser([FromForm] RegisterUserCommand command)
+        [HttpPost("CreateBooking")]
+        [ProducesResponseType(typeof(BookingResponse), statusCode: 201)]
+        public async Task<IActionResult> CreateBooking([FromForm] CreateBookingCommand command)
         {
             try
             {
@@ -45,6 +45,5 @@ namespace API.Controllers
                 }
             }
         }
-
     }
 }

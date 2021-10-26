@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace Application.Contracts.Domain.DTO
 {
-    public class LocationDetail
+    public class LocationResponse
     {
         public int Id { get; set; }
         public string LocationName { get; set; }
         public int AvailableSpace { get; set; }
-        public DateTime CreatedAt { get; set; } 
-        public int CreatedBy { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

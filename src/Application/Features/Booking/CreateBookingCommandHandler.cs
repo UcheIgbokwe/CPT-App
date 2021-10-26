@@ -29,9 +29,9 @@ namespace Application.Features.Booking
             try
             {
                 CommandResponse response = new();
-                BookingResponse registerResponse = await _bookingRepository.CreateBooking(command);
+                BookingResponse bookingResponse = await _bookingRepository.CreateBooking(command);
                 await _unitOfWork.CompleteAsync();
-                response.Response = registerResponse ?? throw new HttpStatusException(HttpStatusCode.Conflict, "Error creating user.");
+                response.Response = bookingResponse ?? throw new HttpStatusException(HttpStatusCode.Conflict, "Error creating booking.");
                 return response;
             }
             catch (Exception ex)
