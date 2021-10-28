@@ -10,5 +10,7 @@ namespace Application.Contracts.Repository
     public interface ISpacesRepository
     {
         Task<bool> CreateSpaces(CreateSpacesCommand command);
+        bool UpdateSpaces(UpdateSpacesCommand command);
+        
     }
 }

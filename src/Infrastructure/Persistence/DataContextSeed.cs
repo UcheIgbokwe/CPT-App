@@ -32,6 +32,7 @@ namespace Infrastructure.Persistence
                 {
                     FirstName = "Barack",
                     LastName = "Obama",
+                    Gender = GenderModel.Male,
                     Role = Role.User,
                     Email = "barack.obama@gmail.com"
                 },
@@ -39,8 +40,17 @@ namespace Infrastructure.Persistence
                 {
                     FirstName = "Michelle",
                     LastName = "Obama",
+                    Gender = GenderModel.Female,
                     Role = Role.User,
                     Email = "michelle.obama@gmail.com"
+                },
+                new User()
+                {
+                    FirstName = "George",
+                    LastName = "Bush",
+                    Gender = GenderModel.Male,
+                    Role = Role.Admin,
+                    Email = "george.bush@gmail.com"
                 }
             };
         }
@@ -49,7 +59,9 @@ namespace Infrastructure.Persistence
             return new LocationDetail
             {
                 LocationName = "White House Center",
-                AvailableSpace = 30
+                AvailableSpace = 30,
+                CreatedAt = DateTime.Now,
+                CreatedBy = 3
             };
         }
     }

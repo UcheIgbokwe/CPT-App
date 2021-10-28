@@ -9,6 +9,7 @@ namespace Application.Contracts.Domain.DTO
     public class RegisterResponse
     {
         public string FullName { get; set; }
+        public string Gender { get; set; }
         public string EmailAddress { get; set; }
         public string Role { get; set; }
     }

@@ -9,8 +9,9 @@ namespace Application.Features.Booking
 {
     public class CreateBookingCommand : IRequest<CommandResponse>
     {
-        public int UserId { get; set; }
+        public string Email { get; set; }
         public int LocationId { get; set; }
+        public string TestType { get; set; }
         public DateTime TestDate { get; set; } 
     }
 

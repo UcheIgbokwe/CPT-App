@@ -12,11 +12,12 @@ namespace Application.Contracts.Domain.Extensions
         public static BookingResponse ToBooking(this Booking book)
         {
             BookingResponse newBooking = new();
-            newBooking.UserId = book.UserId;
+            newBooking.Email = book.Email;
             newBooking.LocationId = book.LocationId;
             newBooking.TestResult = book.TestResult;
             newBooking.TestDate = book.TestDate;
             newBooking.Status = book.Status;
+            newBooking.TestType = book.TestType;
 
             return newBooking;
         }

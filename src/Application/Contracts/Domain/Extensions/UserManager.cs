@@ -15,6 +15,7 @@ namespace Application.Contracts.Domain.Extensions
             newUser.FullName = $"{user.FirstName} {user.LastName}";
             newUser.EmailAddress = user.Email;
             newUser.Role = user.Role;
+            newUser.Gender = user.Gender;
 
             return newUser;
         }

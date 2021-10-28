@@ -25,8 +25,34 @@ namespace API.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [HttpPut("Create")]
+        [HttpPost("Create")]
         public async Task<IActionResult> CreateSpaces([FromForm] CreateSpacesCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+
+                return Created("", "");
+            }
+            catch (Exception ex)
+            {
+                if (ex is HttpStatusException httpException)
+                {
+                    return StatusCode((int) httpException.Status, httpException.Message);
+                }else{
+                    return BadRequest(ex.Message);
+                }
+            }
+            
+        }
+
+        /// <summary>
+        /// Update Spaces on the management portal.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut("Update")]
+        public async Task<IActionResult> UpdateSpaces([FromForm] UpdateSpacesCommand command)
         {
             try
             {

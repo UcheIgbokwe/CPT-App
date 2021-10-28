@@ -45,5 +45,55 @@ namespace API.Controllers
                 }
             }
         }
+
+        /// <summary>
+        /// Cancel Booking on the management portal.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut("CancelBooking")]
+        public async Task<IActionResult> CancelBooking([FromForm] CancelBookingCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                if (ex is HttpStatusException httpException)
+                {
+                    return StatusCode((int) httpException.Status, httpException.Message);
+                }else{
+                    return BadRequest(ex.Message);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Update Test record on the management portal.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut("UpdateTest")]
+        public async Task<IActionResult> UpdateTest([FromForm] UpdateTestCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                if (ex is HttpStatusException httpException)
+                {
+                    return StatusCode((int) httpException.Status, httpException.Message);
+                }else{
+                    return BadRequest(ex.Message);
+                }
+            }
+        }
     }
 }

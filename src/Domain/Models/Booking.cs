@@ -8,10 +8,12 @@ namespace Domain.Models
     public class Booking
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public string Email { get; set; }
         public int LocationId { get; set; }
-        public string Status { get; set; }
+        public string Status { get; set; } = StatusModel.Pending;
+        public string TestType { get; set; }
         public string TestResult { get; set; }
         public DateTime TestDate { get; set; } 
+        public DateTime UpdateDate { get; set; } 
     }
 }

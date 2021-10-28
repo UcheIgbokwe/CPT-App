@@ -10,5 +10,7 @@ namespace Application.Contracts.Repository
     public interface IBookingRepository 
     {
         Task<BookingResponse> CreateBooking(CreateBookingCommand command);
+        bool CancelBooking(CancelBookingCommand command);
+        bool UpdateTestResult(UpdateTestCommand command);
     }
 }

@@ -7,10 +7,11 @@ namespace Application.Contracts.Domain.DTO
 {
     public class BookingResponse
     {
-        public int UserId { get; set; }
+        public string Email { get; set; }
         public int LocationId { get; set; }
         public string Status { get; set; }
         public string TestResult { get; set; }
+        public string TestType { get; set; }
         public DateTime TestDate { get; set; } 
     }
 }
