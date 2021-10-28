@@ -12,7 +12,7 @@ namespace Application.Features.Booking
         {
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("*Required");
-            RuleFor(x => x.Status)
+            RuleFor(x => x.TestResult)
                 .NotEmpty().WithMessage("*Required");    
         }
     }

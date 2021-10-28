@@ -153,7 +153,7 @@ namespace Infrastructure.Repository
                     var availableSpace = _dbcontext.LocationDetails.Where(c => c.Id == existingBooking.LocationId).FirstOrDefault();
 
                     existingBooking.Status = StatusModel.Closed;
-                    existingBooking.Status = command.Status.ToLower();
+                    existingBooking.TestResult = command.TestResult.ToLower();
                     existingBooking.UpdateDate = DateTime.Now;
                     Update(existingBooking);
                     

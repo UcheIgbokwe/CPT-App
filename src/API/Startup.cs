@@ -8,6 +8,7 @@ using Application.Contracts.Domain.Config;
 using Application.Contracts.Repository;
 using Application.Features.Accounts;
 using Application.Features.Booking;
+using Application.Features.Reports;
 using FluentValidation;
 using Infrastructure;
 using Infrastructure.Persistence;
@@ -55,6 +56,7 @@ namespace API
             services.AddMediatR(typeof(CreateSpacesCommandHandler).GetTypeInfo().Assembly);
             services.AddMediatR(typeof(CancelBookingCommandHandler).GetTypeInfo().Assembly);
             services.AddMediatR(typeof(UpdateSpacesCommandHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(GetReportQueryHandler).GetTypeInfo().Assembly);
 
             
 

@@ -9,6 +9,6 @@ namespace Application.Features.Booking
     public class UpdateTestCommand : IRequest<bool>
     {
         public string Email { get; set; }
-        public string Status { get; set; }
+        public string TestResult { get; set; }
     }
 }
