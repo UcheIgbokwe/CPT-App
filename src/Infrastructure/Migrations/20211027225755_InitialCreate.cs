@@ -21,10 +21,7 @@ namespace Infrastructure.Migrations
                     TestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bookings", x => x.Id);
-                });
+                constraints: table => table.PrimaryKey("PK_Bookings", x => x.Id));
 
             migrationBuilder.CreateTable(
                 name: "LocationDetails",
@@ -37,10 +34,7 @@ namespace Infrastructure.Migrations
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LocationDetails", x => x.Id);
-                });
+                constraints: table => table.PrimaryKey("PK_LocationDetails", x => x.Id));
 
             migrationBuilder.CreateTable(
                 name: "Users",
@@ -55,10 +49,7 @@ namespace Infrastructure.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                });
+                constraints: table => table.PrimaryKey("PK_Users", x => x.Id));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -27,7 +27,7 @@ namespace API.Controllers
         /// Returns all available report on bookings.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetData")]
+        [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ReportsResponse>), statusCode: 200)]
         public async Task<IActionResult> GetData()
         {

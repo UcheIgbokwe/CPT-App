@@ -1,0 +1,28 @@
+<template>
+  <require from="./styles.css"></require>
+  <require from="./components/reports-list"></require>
+  <require from="toastr/build/toastr.min.css"></require>
+  <require from="./helper/bootstrap-form-renderer.css"></require>
+  
+  <nav class="navbar navbar-light bg-light border-bottom fixed-top" role="navigation">
+    <a class="navbar-brand" href="#">
+      <img
+        src="https://thynksoftware.com/images/favicons/apple-touch-icon.png"
+        height="30"
+        alt=""
+        loading="lazy"
+      />
+      <span t="[prepend]appName"></span>
+    </a>
+  </nav>
+
+  <loading-indicator loading.bind="router.isNavigating || api.isRequesting"></loading-indicator>
+
+  <div class="container-md">
+    <div class="row">
+      <applicant-list class="col-sm-5 col-md-4"></applicant-list>
+      <router-view class="col-sm-7 col-md-8"></router-view>
+    </div>
+  </div>
+</template>
+
