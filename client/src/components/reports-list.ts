@@ -1,6 +1,7 @@
 import {EventAggregator} from 'aurelia-event-aggregator';
 import * as toastr from 'toastr';
 import { TestPortalAPI } from '../api/agent';
+import {BookingUpdated,BookingViewed} from './messages';
 import {observable} from 'aurelia-framework';
 import {autoinject} from 'aurelia-dependency-injection';
   
@@ -13,7 +14,12 @@ export class ReportList {
   public currentLocale: string;
 
   constructor(private api: TestPortalAPI, ea: EventAggregator) { 
-
+    ea.subscribe(BookingViewed, msg => this.select(msg.booking));
+    ea.subscribe(BookingUpdated, msg => {
+      let id = msg.booking.id;
+      let found = this.reports.find(x => x.id == id);
+      Object.assign(found, msg.booking);
+    })
     
   }
 
@@ -27,7 +33,7 @@ export class ReportList {
   }
 
   select(report) {
-    this.selectedId = report.id;
+    this.selectedId = report.locationName;
     return true;
   }
 }

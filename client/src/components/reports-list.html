@@ -1,7 +1,7 @@
 <template>
   <div class="reports-list">
     <div class="list-group">
-      <a repeat.for="report of reports" class="list-group-item list-group-item-action ${report.locationName === $parent.selectedId ? 'active' : ''}" route-href="route: reports; params.bind: {id:report.locationName}" click.delegate="$parent.select(report)">
+      <a repeat.for="report of reports" class="list-group-item list-group-item-action ${report.locationName === $parent.selectedId ? 'active' : ''}" route-href="route: bookings; params.bind: {id:report.locationName}" click.delegate="$parent.select(report)">
         <strong>${report.locationName} ${report.capacity}</strong><br>
         <small>${report.actualBooking}</small>
         <div>

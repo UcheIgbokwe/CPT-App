@@ -11,6 +11,7 @@ namespace Application.Features.Booking
         public CancelBookingValidator()
         {
             RuleFor(x => x.Email)
+                .Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("*Required");
         }
     }

@@ -27,7 +27,7 @@ namespace API.Controllers
         /// <returns></returns>
         [HttpPost("CreateBooking")]
         [ProducesResponseType(typeof(BookingResponse), statusCode: 201)]
-        public async Task<IActionResult> CreateBooking([FromForm] CreateBookingCommand command)
+        public async Task<IActionResult> CreateBooking([FromBody] CreateBookingCommand command)
         {
             try
             {

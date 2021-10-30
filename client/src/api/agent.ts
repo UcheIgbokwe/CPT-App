@@ -29,4 +29,23 @@ export class TestPortalAPI{
     });  
   }
 
+  createBooking(booking){
+    this.isRequesting = true;
+    return this.http.fetch('Booking/CreateBooking', {
+      method: 'post',
+      body: json(booking)
+    })
+    .then(response => response.json())
+    .then(createdBooking => {
+      this.isRequesting = false;
+      return createdBooking;
+    })
+    .catch(error => {
+      this.isRequesting = false;
+      console.log(error);
+      toastr.error(error, 'Error!');
+      return [];
+    });
+  }
+
 }

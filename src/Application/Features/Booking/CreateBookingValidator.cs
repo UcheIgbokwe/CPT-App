@@ -11,6 +11,7 @@ namespace Application.Features.Booking
         public CreateBookingValidator()
         {
             RuleFor(x => x.TestDate)
+                .Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("*Required")
                 .GreaterThanOrEqualTo(DateTime.Today)
                 .WithMessage("Please enter a present or future date.");

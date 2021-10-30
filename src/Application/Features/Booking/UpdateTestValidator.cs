@@ -11,8 +11,10 @@ namespace Application.Features.Booking
         public UpdateTestValidator()
         {
             RuleFor(x => x.Email)
+                .Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("*Required");
             RuleFor(x => x.TestResult)
+                .Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("*Required");    
         }
     }

@@ -1,14 +1,13 @@
 <template>
   <require from="./styles.css"></require>
-  <require from="./components/reports-list"></require>
   <require from="toastr/build/toastr.min.css"></require>
   <require from="./helper/bootstrap-form-renderer.css"></require>
   
   <nav class="navbar navbar-light bg-light border-bottom fixed-top" role="navigation">
     <a class="navbar-brand" href="#">
       <img
-        src="https://thynksoftware.com/images/favicons/apple-touch-icon.png"
-        height="30"
+        src="https://thynksoftware.com/images/brandings/logo-thynksoftware.svg"
+        height="50"
         alt=""
         loading="lazy"
       />
@@ -20,7 +19,6 @@
 
   <div class="container-md">
     <div class="row">
-      <applicant-list class="col-sm-5 col-md-4"></applicant-list>
       <router-view class="col-sm-7 col-md-8"></router-view>
     </div>
   </div>

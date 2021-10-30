@@ -8,6 +8,7 @@ a:focus {
   outline: none;
 }
 
+
 .navbar-nav li.loader {
     margin: 12px 24px 0 6px;
 }
@@ -19,12 +20,14 @@ a:focus {
 .contact-list {
   overflow-y: auto;
   border: 1px solid #ddd;
-  padding: 10px;
+  padding: 1px 32px;
 }
 
 .panel {
   margin: 20px;
 }
+
+
 
 .button-bar {
   right: 0;
@@ -32,6 +35,7 @@ a:focus {
   bottom: 0;
   border-top: 1px solid #ddd;
   background: white;
+  
 }
 
 .button-bar > button {
