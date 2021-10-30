@@ -36,9 +36,9 @@ namespace Infrastructure.Repository
                 foreach (var item in bookings)
                 {
                     ReportsResponse result = new();
-                    result.LocationName =  _dbcontext.LocationDetails.Where(c => c.Id == item.LocationId).Select(x => x.LocationName).FirstOrDefault();
-                    result.Capacity = _dbcontext.LocationDetails.Where(c => c.Id == item.LocationId).Select(x => x.AvailableSpace).FirstOrDefault();
-                    result.CreatedAt = _dbcontext.LocationDetails.Where(c => c.Id == item.LocationId).Select(x => x.CreatedAt).FirstOrDefault();
+                    result.LocationName =  await _dbcontext.LocationDetails.Where(c => c.Id == item.LocationId).Select(x => x.LocationName).FirstOrDefaultAsync();
+                    result.Capacity = await _dbcontext.LocationDetails.Where(c => c.Id == item.LocationId).Select(x => x.AvailableSpace).FirstOrDefaultAsync();
+                    result.CreatedAt = _dbcontext.LocationDetails.Where(c => c.Id == item.LocationId).Select(x => x.CreatedAt).FirstOrDefault().ToShortDateString();
                     result.ActualBooking = item.ActualBooking;
                     result.CancelledBooking = item.CancelledBooking;
                     result.CompletedBooking = item.CompletedBooking;

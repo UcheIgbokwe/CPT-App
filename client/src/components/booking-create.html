@@ -1,4 +1,5 @@
 <template>
+  <require from="./shared.css"></require>
   <div class="card">
     <div class="card-header text-white bg-primary">Booking</div>
     </div>
@@ -64,5 +65,37 @@
       </div>
     </div>
   </div>
+
+  <div>
+    <table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData">
+      <caption>Users</caption>
+        <thead>
+        <tr>
+            <th id="name" aut-sort="key.bind: nameLength">LocationName</th>
+            <th id="capacity" aut-sort="key: capacity; default: desc">Capacity</th>
+            <th id="actualBooking">Actual Booking</th>
+            <th id="cancelledBooking">Cancelled Booking</th>
+            <th id="completedBooking">Completed Booking</th>
+            <th id="positiveCases" aut-sort="key: positiveCases; default: desc">Positive Cases</th>
+            <th id="negativeCases" aut-sort="key: negativeCases; default: desc">Negative Cases</th>
+            <th id="createdAt" aut-sort="custom.bind: dateSort">Date Created</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr repeat.for="report of $displayData">
+            <td>${report.locationName}</td>
+            <td>${report.capacity}</td>
+            <td>${report.actualBooking}</td>
+            <td>${report.cancelledBooking}</td>
+            <td>${report.completedBooking}</td>
+            <td>${report.positiveCases}</td>
+            <td>${report.negativeCases}</td>
+            <td>${report.createdAt}</td>
+        </tr>
+        </tbody>
+    </table>
+  </div>
+
+  
 </template>
 

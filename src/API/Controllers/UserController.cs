@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Behaviours;
 using Application.Contracts.Domain.DTO;
@@ -27,7 +28,7 @@ namespace API.Controllers
         /// <returns></returns>
         [HttpPost("RegisterUser")]
         [ProducesResponseType(typeof(RegisterResponse), statusCode: 201)]
-        public async Task<IActionResult> RegisterUser([FromForm] RegisterUserCommand command)
+        public async Task<IActionResult> RegisterUser([FromBody] RegisterUserCommand command)
         {
             try
             {
@@ -44,6 +45,32 @@ namespace API.Controllers
                     return BadRequest(ex.Message);
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns all Users.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<UserResponse>), statusCode: 200)]
+        public async Task<IActionResult> GetUsers()
+        {
+            try
+            {
+                var result =  await _mediator.Send(new GetUsersQuery());
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                if (ex is HttpStatusException httpException)
+                {
+                    return StatusCode((int) httpException.Status, httpException.Message);
+                }else{
+                    return BadRequest(ex.Message);
+                }
+            }
+            
         }
 
     }

@@ -11,6 +11,7 @@ using Application.Features.Accounts;
 using Application.Mappings;
 using Domain.Models;
 using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Repository
@@ -38,6 +39,27 @@ namespace Infrastructure.Repository
                 {
                     throw new InvalidResponseException(ex.Message);
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new HandleDbException(ex.Message);
+            }
+        }
+        public async Task<IEnumerable<UserResponse>> GetAllUsers()
+        {
+            try
+            {
+                var users =  await _dbcontext.Users.Select( s => new UserResponse()
+                {
+                    FirstName = s.FirstName,
+                    LastName = s.LastName,
+                    Gender = s.Gender,
+                    Email = s.Email,
+                    Role = s.Role
+                }).ToListAsync();
+
+                return users;
+
             }
             catch (Exception ex)
             {

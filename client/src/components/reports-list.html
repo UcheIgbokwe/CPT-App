@@ -1,15 +1,33 @@
 <template>
-  <div class="reports-list">
-    <div class="list-group">
-      <a repeat.for="report of reports" class="list-group-item list-group-item-action ${report.locationName === $parent.selectedId ? 'active' : ''}" route-href="route: bookings; params.bind: {id:report.locationName}" click.delegate="$parent.select(report)">
-        <strong>${report.locationName} ${report.capacity}</strong><br>
-        <small>${report.actualBooking}</small>
-        <div>
-          <footer class="blockquote-footer" t="[prepend]footer"></footer>
-        </div>
-      </a>
-    </div>
-  </div>
-  
+  <require from="./reports-list.css"></require>
+  <table class="table table-striped" aurelia-table="data.bind: reports; display-data.bind: $displayData">
+    <caption>Report</caption>
+      <thead>
+      <tr>
+          <th id="name" aut-sort="key.bind: nameLength">LocationName</th>
+          <th id="capacity" aut-sort="key: capacity; default: desc">Capacity</th>
+          <th id="actualBooking">Actual Booking</th>
+          <th id="cancelledBooking">Cancelled Booking</th>
+          <th id="completedBooking">Completed Booking</th>
+          <th id="positiveCases" aut-sort="key: positiveCases; default: desc">Positive Cases</th>
+          <th id="negativeCases" aut-sort="key: negativeCases; default: desc">Negative Cases</th>
+          <th id="createdAt" aut-sort="custom.bind: dateSort">Date Created</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr repeat.for="report of $displayData">
+          <td>${report.locationName}</td>
+          <td>${report.capacity}</td>
+          <td>${report.actualBooking}</td>
+          <td>${report.cancelledBooking}</td>
+          <td>${report.completedBooking}</td>
+          <td>${report.positiveCases}</td>
+          <td>${report.negativeCases}</td>
+          <td>${report.createdAt}</td>
+      </tr>
+      </tbody>
+  </table>
 </template>
+
+
 

@@ -50,6 +50,7 @@ namespace API
             services.AddMediatR(typeof(CancelBookingCommandHandler).GetTypeInfo().Assembly);
             services.AddMediatR(typeof(UpdateSpacesCommandHandler).GetTypeInfo().Assembly);
             services.AddMediatR(typeof(GetReportQueryHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(GetUsersQueryHandler).GetTypeInfo().Assembly);
 
             
 

@@ -14,7 +14,9 @@ export class App {
     config.options.pushState = true;
     config.options.root = '/';
     config.map([
-      { route: '',                moduleId: PLATFORM.moduleName('./components/booking-create'), title:'Bookings' }
+      { route: '',               moduleId: PLATFORM.moduleName('./components/register-user'), title:'User' },
+      { route: 'booking/',       moduleId: PLATFORM.moduleName('./components/booking-create'), name:'bookings' },
+      { route: 'report/',        moduleId: PLATFORM.moduleName('./components/reports-list'), name:'reports' }
     ]);
 
     this.router = router;

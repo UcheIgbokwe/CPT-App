@@ -11,5 +11,6 @@ namespace Application.Contracts.Repository
     public interface IUserRepository
     {
         Task<RegisterResponse> RegisterUser(RegisterUserCommand command);
+        Task<IEnumerable<UserResponse>> GetAllUsers();
     }
 }

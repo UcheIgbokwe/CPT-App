@@ -23,8 +23,41 @@ export class TestPortalAPI{
       })
     .catch(error => {
       this.isRequesting = false
-      console.log(error);
       toastr.error(error, 'Error!')
+      return [];
+    });  
+  }
+
+  getUsers(){
+    this.isRequesting = true;
+    return this.http.fetch('User')
+      .then(response => response.json())
+      .then(userList => {
+        this.isRequesting = false;
+        return userList;
+      })
+    .catch(errorLog => {
+      this.isRequesting = false
+      toastr.error(errorLog, 'Error!')
+      return [];
+    });  
+  }
+
+  registerUser(user){
+    this.isRequesting = true;
+    return this.http.fetch('User/RegisterUser', {
+      method: 'post',
+      body: json(user)
+    })
+    .then(response => response.json())
+    .then(createdUser => {
+      this.isRequesting = false;
+      return createdUser;
+    })
+    .catch(error => {
+      this.isRequesting = false;
+      console.log(error);
+      toastr.error(error, 'Error!');
       return [];
     });  
   }
