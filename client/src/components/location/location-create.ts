@@ -3,9 +3,9 @@ import { observable } from "aurelia-framework";
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {ValidationControllerFactory, ValidationController, ValidationRules } from "aurelia-validation";
 import Swal from 'sweetalert2';
-import { TestPortalAPI } from './../api/agent';
-import { BookingCreated, LocationCreated } from './messages';
-import { BootstrapFormRenderer } from '../helper/bootstrap-form-renderer';
+import { TestPortalAPI } from '../../api/agent';
+import { LocationCreated } from '../messages';
+import { BootstrapFormRenderer } from '../../helper/bootstrap-form-renderer';
 
 
 interface Location {

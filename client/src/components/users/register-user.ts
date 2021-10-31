@@ -1,36 +1,33 @@
 import {autoinject} from 'aurelia-dependency-injection';
 import { observable } from "aurelia-framework";
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {ValidationControllerFactory, ValidationController, ValidateResult, ValidationRules, validateTrigger } from "aurelia-validation";
+import {ValidationControllerFactory, ValidationController, ValidationRules } from "aurelia-validation";
 import Swal from 'sweetalert2';
-import { TestPortalAPI } from './../api/agent';
-import {BookingCreated} from './messages';
-import { BootstrapFormRenderer } from '../helper/bootstrap-form-renderer';
+import { TestPortalAPI } from '../../api/agent';
+import { BootstrapFormRenderer } from '../../helper/bootstrap-form-renderer';
 
-
-interface Booking {
+interface User {
+  fullName: string;
+  gender: string;
   email: string;
-  locationId: number;
-  status: string;
-  testResult: string;
-  testType: string;
-  testDate: Date;
+  role: string;
 }
 
-interface BookingDto {
+interface UserDto {
+  firstName: string;
+  lastName: string;
+  gender: string;
   email: string;
-  locationId: number;
-  testType: string;
-  testDate: Date;
+  role: string;
 }
 
 @autoinject
-export class BookingDetail {
+export class UserDetail {
   routeConfig;
-  booking: Booking;
-  originalBooking: Booking;
+  userInfo: User;
+  originalUser: User;
+  userList;
   controller: ValidationController;
-  public locales: { key: string; label: string }[];
   @observable
   public currentLocale: string;
 
@@ -39,29 +36,29 @@ export class BookingDetail {
     
     this.controller.addRenderer(new BootstrapFormRenderer());
     this.controller.addObject(this);
-    this.controller.reset({ object: this.booking, propertyName: 'booked' });
+    this.controller.reset({ object: this.userInfo, propertyName: 'user' });
   
 
   }
 
-  public bind() {
-    this.controller.validate();
-  }
+  // public bind() {
+  //   this.controller.validate();
+  // }
 
-  create(p1,p2,p3,p4) {
-    var newBooking: BookingDto = {
-      email: p1,
-      locationId:p2,
-      testType:p3,
-      testDate:p4,
+  create(p1,p2,p3,p4,p5) {
+    var newUser: UserDto = {
+      firstName: p1,
+      lastName:p2,
+      email:p3,
+      gender:p4,
+      role:p5,
     }
     this.controller.validate()
     .then((validate) => {
       if(validate.valid) {
-        return this.api.createBooking(newBooking).then(booking => {
-          this.booking = <Booking>booking;
-          this.originalBooking = JSON.parse(JSON.stringify(this.booking));
-          this.ea.publish(new BookingCreated(this.booking));
+        return this.api.registerUser(newUser).then(userInfo => {
+          this.userInfo = <User>userInfo;
+          this.originalUser = JSON.parse(JSON.stringify(this.userInfo));
           window.location.reload();
         });
       } else {
@@ -109,17 +106,26 @@ export class BookingDetail {
     }
   }
 
+  bind() {
+    this.api.getUsers().then(userList => {
+      this.userList = userList;
+    });
+  }
 
 }
 
 ValidationRules
   .ensure('email').required().email()
   .withMessage('Valid Email must be provided.')
-  .ensure('locationId').required()
-  .withMessage('Location ID must be provided.')
-  .ensure('testType').required()
-  .withMessage('Test type must be provided.')
-  .on(BookingDetail);
+  .ensure('firstName').required()
+  .withMessage('First Name must be provided.')
+  .ensure('lastName').required()
+  .withMessage('Last Name must be provided.')
+  .ensure('role').required()
+  .withMessage('Role must be provided.')
+  .ensure('gender').required()
+  .withMessage('Gender must be provided.')
+  .on(UserDetail);
   
   
 

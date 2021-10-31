@@ -1,4 +1,4 @@
-import { TestPortalAPI } from '../api/agent';
+import { TestPortalAPI } from '../../api/agent';
 import {observable} from 'aurelia-framework';
 import {autoinject} from 'aurelia-dependency-injection';
   

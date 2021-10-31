@@ -14,10 +14,10 @@ export class App {
     config.options.pushState = true;
     config.options.root = '/';
     config.map([
-      { route: '',               moduleId: PLATFORM.moduleName('./components/register-user'), title:'User' },
-      { route: 'booking/',       moduleId: PLATFORM.moduleName('./components/booking-create'), name:'bookings' },
-      { route: 'report/',        moduleId: PLATFORM.moduleName('./components/reports-list'), name:'reports' },
-      { route: 'location/',      moduleId: PLATFORM.moduleName('./components/location-create'), name:'locations' }
+      { route: '',               moduleId: PLATFORM.moduleName('./components/users/register-user'), title:'User' },
+      { route: 'booking/',       moduleId: PLATFORM.moduleName('./components/bookings/booking-create'), name:'bookings' },
+      { route: 'report/',        moduleId: PLATFORM.moduleName('./components/reports/reports-list'), name:'reports' },
+      { route: 'location/',      moduleId: PLATFORM.moduleName('./components/location/location-create'), name:'locations' }
     ]);
 
     this.router = router;

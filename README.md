@@ -62,7 +62,5 @@ To begin booking on the application, Here are a few steps:
   `http://localhost:8080/report/`    
   
 
-Now the application should be available on http://localhost:8080/
-
 Incase of doubt, kindly contact me via: uchehenryigbokwe@gmail.com.
 
