@@ -71,5 +71,30 @@ namespace API.Controllers
             }
             
         }
+
+        /// <summary>
+        /// Returns a location.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            try
+            {
+                var result =  await _mediator.Send(new GetLocationQuery(id));
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                if (ex is HttpStatusException httpException)
+                {
+                    return StatusCode((int) httpException.Status, httpException.Message);
+                }else{
+                    return BadRequest(ex.Message);
+                }
+            }
+            
+        }
     }
 }

@@ -100,5 +100,26 @@ namespace Infrastructure.Repository
                 throw new HandleDbException(ex.Message);
             }
         }
+        public async Task<LocationResponse2> GetSpaces(int Id)
+        {
+            try
+            {
+                var location =  await _dbcontext.LocationDetails.Where(c => c.Id == Id).Select( s => new LocationResponse2()
+                {
+                    Id = s.Id,
+                    LocationName = s.LocationName,
+                    AvailableSpace = s.AvailableSpace,
+                    CreatedAt = s.CreatedAt,
+                    UserId = s.CreatedBy
+                    
+                }).FirstOrDefaultAsync();
+
+                return location;
+            }
+            catch (Exception ex)
+            {
+                throw new HandleDbException(ex.Message);
+            }
+        }
     }
 }

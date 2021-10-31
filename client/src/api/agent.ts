@@ -115,6 +115,37 @@ export class TestPortalAPI{
     });
   }
 
+  getLocation(id){
+    this.isRequesting = true;
+    return this.http.fetch(`Location/${id}`)
+      .then(response => response.json())
+      .then(location => {
+        this.isRequesting = false;
+        return location;
+      })
+    .catch(error => {
+      this.isRequesting = false;
+      toastr.error(error, 'Error!')
+      return [];
+    });
+  }
 
+  delete(id){
+    this.isRequesting = true;
+    return this.http.fetch(`Location/delete/${id}`, {
+      method: 'delete'
+    })
+    .then(response => response.text())
+    .then(responseMessage => {
+      this.isRequesting = false;
+      console.log(responseMessage)
+      return responseMessage;
+    })
+    .catch(error => {
+      this.isRequesting = false;
+      console.log(error);
+      toastr.error(error, 'Error!')
+    });
+  }  
 
 }

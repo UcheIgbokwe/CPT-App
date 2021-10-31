@@ -1,0 +1,44 @@
+<template>
+  <require from="../shared.css"></require>
+  <div class="card">
+    <div class="card-header text-white bg-primary">Update Location</div>
+    </div>
+    <div class="card-body">
+      <form role="form">
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="locationName">Location Name</label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" placeholder="locationName" value.bind="location.locationName">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="availableSpace">Available Space</label>
+          <div class="col-md-9">
+            <input type="number" class="form-control" placeholder="availableSpace" value.bind="location.availableSpace">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="createdAt">Date</label>
+          <div class="col-md-9">
+            <input type="date" class="form-control" placeholder="createdAt" value.bind="location.createdAt">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="userId">User ID</label>
+          <div class="col-md-9">
+            <input type="number" class="form-control" placeholder="userId" value.bind="location.userId">
+          </div>
+        </div>
+
+      </form>
+      <div>
+        <button class="btn btn-danger float-right" click.delegate="delete(location)" disabled.bind="!canSave">Delete</button>
+        <button class="btn btn-primary float-right" click.delegate="update(location)" disabled.bind="!canSave">Update</button>
+      </div>
+    </div>
+  </div>
+</template>
+

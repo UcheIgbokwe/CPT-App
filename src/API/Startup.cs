@@ -51,8 +51,8 @@ namespace API
             services.AddMediatR(typeof(UpdateSpacesCommandHandler).GetTypeInfo().Assembly);
             services.AddMediatR(typeof(GetReportQueryHandler).GetTypeInfo().Assembly);
             services.AddMediatR(typeof(GetUsersQueryHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(GetLocationQueryHandler).GetTypeInfo().Assembly);
 
-            
 
             services.AddValidatorsFromAssemblyContaining(typeof(RegisterUserCommandHandler));
             services.AddValidatorsFromAssemblyContaining(typeof(CreateBookingCommandHandler));
