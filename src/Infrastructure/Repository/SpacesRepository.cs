@@ -35,7 +35,7 @@ namespace Infrastructure.Repository
                     {
                         throw new HttpStatusException(HttpStatusCode.NotFound, "User is invalid.");
                     }
-                    if(user.Role != Role.Admin)
+                    if(user.Role.ToLower() != Role.Admin)
                     {
                         throw new HttpStatusException(HttpStatusCode.Unauthorized, "User is not an admin.");
                     }
@@ -68,7 +68,7 @@ namespace Infrastructure.Repository
                     {
                         throw new HttpStatusException(HttpStatusCode.NotFound, "User is invalid.");
                     }
-                    if(user.Role != Role.Admin)
+                    if(user.Role.ToLower() != Role.Admin)
                     {
                         throw new HttpStatusException(HttpStatusCode.Unauthorized, "User is not an admin.");
                     }

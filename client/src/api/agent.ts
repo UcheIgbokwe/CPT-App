@@ -83,6 +83,73 @@ export class TestPortalAPI{
     });
   }
 
+  getBooking(email){
+    this.isRequesting = true;
+    return this.http.fetch(`Booking/${email}`)
+      .then(response => response.json())
+      .then(booking => {
+        this.isRequesting = false;
+        return booking;
+      })
+    .catch(error => {
+      this.isRequesting = false;
+      toastr.error(error, 'Error!')
+      return [];
+    });
+  }
+
+  getAllBookings(){
+    this.isRequesting = true;
+    return this.http.fetch('Booking')
+      .then(response => response.json())
+      .then(bookingList => {
+        this.isRequesting = false;
+        return bookingList;
+      })
+    .catch(errorLogAllLocation => {
+      this.isRequesting = false
+      toastr.error(errorLogAllLocation, 'Error!')
+      return [];
+    });  
+  }
+
+  updateBooking(updateDetails){
+    console.log(updateDetails)
+    this.isRequesting = true;
+    return this.http.fetch('Booking/UpdateTest', {
+      method: 'put',
+      body: json(updateDetails)
+    })
+    .then(response => response.json())
+    .then(updateBooking => {
+      this.isRequesting = false;
+      return updateBooking;
+    })
+    .catch(errorUpdateBooking => {
+      this.isRequesting = false;
+      toastr.error(errorUpdateBooking, 'Error!');
+      return [];
+    });
+  }
+
+  cancelBooking(email){
+    this.isRequesting = true;
+    return this.http.fetch('Booking/CancelBooking', {
+      method: 'put',
+      body: json(email)
+    })
+    .then(response => response.json())
+    .then(cancelBooking => {
+      this.isRequesting = false;
+      return cancelBooking;
+    })
+    .catch(errorCancelBooking => {
+      this.isRequesting = false;
+      toastr.error(errorCancelBooking, 'Error!');
+      return [];
+    });
+  }
+
   //Location
   getAllLocations(){
     this.isRequesting = true;

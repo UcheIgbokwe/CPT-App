@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Behaviours;
+using Application.Contracts.Domain.DTO;
 using Application.Contracts.Repository;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Features.Booking
 {
-    public class CancelBookingCommandHandler : IRequestHandler<CancelBookingCommand, bool>
+    public class CancelBookingCommandHandler : IRequestHandler<CancelBookingCommand, BookingResponseII>
     {
         private readonly IBookingRepository _bookingRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -22,11 +23,11 @@ namespace Application.Features.Booking
             _bookingRepository = bookingRepository;
             
         }
-        public async Task<bool> Handle(CancelBookingCommand command, CancellationToken cancellationToken)
+        public async Task<BookingResponseII> Handle(CancelBookingCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                bool bookingResponse = _bookingRepository.CancelBooking(command);
+                var bookingResponse = await _bookingRepository.CancelBooking(command);
                 await _unitOfWork.CompleteAsync();
                 return bookingResponse;
             }

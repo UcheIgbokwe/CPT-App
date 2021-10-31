@@ -21,6 +21,15 @@ namespace Application.Contracts.Domain.Extensions
 
             return newBooking;
         }
+        public static BookingResponseII ToBookingII(this Booking book)
+        {
+            BookingResponseII newBooking = new();
+            newBooking.Email = book.Email;
+            newBooking.TestResult = book.TestResult;
+            newBooking.Status = book.Status;
+
+            return newBooking;
+        }
         public static LocationResponse ToSpaces(this LocationDetail space)
         {
             LocationResponse newSpace = new();

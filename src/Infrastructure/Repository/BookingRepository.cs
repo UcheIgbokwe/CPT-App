@@ -22,26 +22,26 @@ namespace Infrastructure.Repository
         {
         }
 
-        public bool CancelBooking(CancelBookingCommand command)
+        public async Task<BookingResponseII> CancelBooking(CancelBookingCommand command)
         {
             try
             {
                 try
                 {
                     using var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-                    var user = _dbcontext.Users.Where(c => c.Email == command.Email).FirstOrDefault();
+                    var user = await _dbcontext.Users.Where(c => c.Email == command.Email).FirstOrDefaultAsync();
 
                     if(user == null)
                     {
                         throw new HttpStatusException(HttpStatusCode.NotFound, "User is invalid.");
                     }
-                    if(user.Role != Role.User)
+                    if(user.Role.ToLower() != Role.User)
                     {
                         throw new HttpStatusException(HttpStatusCode.Unauthorized, "Booking is only available to users.");
                     }
 
                     //check if user has existing open booking.
-                    var existingBooking = _dbcontext.Bookings.Where(c => c.Email == user.Email && c.Status == StatusModel.Pending).FirstOrDefault();
+                    var existingBooking = _dbcontext.Bookings.Where(c => c.Email == user.Email && c.Status.ToLower() == StatusModel.Pending).FirstOrDefault();
 
                     if(existingBooking == null)
                     {
@@ -59,7 +59,8 @@ namespace Infrastructure.Repository
                     _dbcontext.LocationDetails.Update(availableSpace);
                     
                     transaction.Complete();
-                    return true;
+
+                    return existingBooking.ToBookingII();
                 }
                 catch (TransactionAbortedException ex)
                 {
@@ -85,7 +86,7 @@ namespace Infrastructure.Repository
                     {
                         throw new HttpStatusException(HttpStatusCode.NotFound, "User is invalid.");
                     }
-                    if(user.Role != Role.User)
+                    if(user.Role.ToLower() != Role.User)
                     {
                         throw new HttpStatusException(HttpStatusCode.Unauthorized, "Booking is only available to users.");
                     }
@@ -103,7 +104,7 @@ namespace Infrastructure.Repository
                     }
 
                     //check if user has existing open booking.
-                    var existingBooking = _dbcontext.Bookings.Where(c => c.Email == user.Email && c.Status == StatusModel.Pending).FirstOrDefault();
+                    var existingBooking = _dbcontext.Bookings.Where(c => c.Email == user.Email && c.Status.ToLower() == StatusModel.Pending).FirstOrDefault();
 
                     if(existingBooking != null)
                     {
@@ -166,14 +167,14 @@ namespace Infrastructure.Repository
                 throw new HandleDbException(ex.Message);
             }
         }
-        public bool UpdateTestResult(UpdateTestCommand command)
+        public async Task<BookingResponseII> UpdateTestResult(UpdateTestCommand command)
         {
             try
             {
                 try
                 {
                     using var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-                    var user = _dbcontext.Users.Where(c => c.Email == command.Email).FirstOrDefault();
+                    var user = await _dbcontext.Users.Where(c => c.Email == command.Email).FirstOrDefaultAsync();
 
                     if(user == null)
                     {
@@ -181,7 +182,7 @@ namespace Infrastructure.Repository
                     }
 
                     //check if user has existing open booking.
-                    var existingBooking = _dbcontext.Bookings.Where(c => c.Email == user.Email && c.Status == StatusModel.Pending).FirstOrDefault();
+                    var existingBooking = _dbcontext.Bookings.Where(c => c.Email == user.Email && c.Status.ToLower() == StatusModel.Pending).FirstOrDefault();
 
                     if(existingBooking == null)
                     {
@@ -196,7 +197,8 @@ namespace Infrastructure.Repository
                     Update(existingBooking);
                     
                     transaction.Complete();
-                    return true;
+
+                    return existingBooking.ToBookingII();
                 }
                 catch (TransactionAbortedException ex)
                 {

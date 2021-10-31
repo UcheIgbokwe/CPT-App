@@ -1,0 +1,18 @@
+<template>
+  <div class="booking-list">
+    <div class="list-group">
+      <a repeat.for="booking of bookings" class="list-group-item list-group-item-action ${booking.email === $parent.selectedId ? 'active' : ''}" route-href="route: booking; params.bind: {email:booking.email}" click.delegate="$parent.select(booking)">
+        <strong><h4>User</h4>${booking.email}  </strong><br>
+        <div>
+          <footer class="blockquote-footer"></footer>
+        </div>
+        <strong><h6>Status</h6>${booking.status}</strong>
+        <div>
+          <footer class="blockquote-footer"></footer>
+        </div>
+        <strong><h6>Test Result</h6>${booking.testResult}</strong>
+      </a>
+    </div>
+  </div>
+</template>
+

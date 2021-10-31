@@ -16,10 +16,12 @@ export class App {
     config.map([
       { route: '',               moduleId: PLATFORM.moduleName('./components/users/register-user'), title:'User' },
       { route: 'booking/',       moduleId: PLATFORM.moduleName('./components/bookings/booking-create'), name:'bookings' },
+      { route: 'booking/:email', moduleId: PLATFORM.moduleName('./components/bookings/booking-detail'), name:'booking' },
+      { route: 'bookingList/',   moduleId: PLATFORM.moduleName('./components/bookings/booking-list'), name:'bookingList' },
       { route: 'report/',        moduleId: PLATFORM.moduleName('./components/reports/reports-list'), name:'reports' },
       { route: 'location/',      moduleId: PLATFORM.moduleName('./components/location/location-create'), name:'locations' },
       { route: 'location/:id',   moduleId: PLATFORM.moduleName('./components/location/location-detail'), name:'location' },
-      { route: 'locationList/',   moduleId: PLATFORM.moduleName('./components/location/location-list'), name:'locationList' }
+      { route: 'locationList/',  moduleId: PLATFORM.moduleName('./components/location/location-list'), name:'locationList' }
     ]);
 
     this.router = router;

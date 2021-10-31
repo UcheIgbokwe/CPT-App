@@ -59,7 +59,7 @@ export class LocationDetail {
           this.location = <Location>location;
           this.originalLocation = JSON.parse(JSON.stringify(this.location));
           this.ea.publish(new LocationCreated(this.location));
-          window.location.reload();
+          setTimeout(function(){location.replace("locationList/")}, 3000);
         });
       } else {
         console.log('E no enter');

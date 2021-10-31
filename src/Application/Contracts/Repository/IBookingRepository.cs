@@ -10,8 +10,8 @@ namespace Application.Contracts.Repository
     public interface IBookingRepository 
     {
         Task<BookingResponse> CreateBooking(CreateBookingCommand command);
-        bool CancelBooking(CancelBookingCommand command);
-        bool UpdateTestResult(UpdateTestCommand command);
+        Task<BookingResponseII> CancelBooking(CancelBookingCommand command);
+        Task<BookingResponseII> UpdateTestResult(UpdateTestCommand command);
         Task<BookingResponseII> GetBooking(string email);
         Task<IEnumerable<BookingResponseII>> GetBookings();
     }

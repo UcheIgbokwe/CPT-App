@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Behaviours;
+using Application.Contracts.Domain.DTO;
 using Application.Contracts.Repository;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Features.Booking
 {
-    public class UpdateTestCommandHandler : IRequestHandler<UpdateTestCommand, bool>
+    public class UpdateTestCommandHandler : IRequestHandler<UpdateTestCommand, BookingResponseII>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<UpdateTestCommandHandler> _logger;
@@ -22,11 +23,11 @@ namespace Application.Features.Booking
             _unitOfWork = unitOfWork;
             
         }
-        public async Task<bool> Handle(UpdateTestCommand command, CancellationToken cancellationToken)
+        public async Task<BookingResponseII> Handle(UpdateTestCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                bool locationResponse =  _bookingRepository.UpdateTestResult(command);
+                var locationResponse =  await _bookingRepository.UpdateTestResult(command);
                 await _unitOfWork.CompleteAsync();
                 return locationResponse;
             }

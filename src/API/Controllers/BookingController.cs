@@ -106,13 +106,13 @@ namespace API.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut("CancelBooking")]
-        public async Task<IActionResult> CancelBooking([FromForm] CancelBookingCommand command)
+        public async Task<IActionResult> CancelBooking([FromBody] CancelBookingCommand command)
         {
             try
             {
                 var result = await _mediator.Send(command);
 
-                return NoContent();
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -131,13 +131,13 @@ namespace API.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut("UpdateTest")]
-        public async Task<IActionResult> UpdateTest([FromForm] UpdateTestCommand command)
+        public async Task<IActionResult> UpdateTest([FromBody] UpdateTestCommand command)
         {
             try
             {
                 var result = await _mediator.Send(command);
 
-                return NoContent();
+                return Ok(result);
             }
             catch (Exception ex)
             {

@@ -1,0 +1,45 @@
+<template>
+  <require from="../shared.css"></require>
+  <div class="card">
+    <div class="card-header text-white bg-primary">Update Booking</div>
+    </div>
+    <div class="card-body">
+      <form role="form">
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="email">Email</label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" placeholder="email" value.bind="booking.email">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="testResult">Test Result</label>
+          <div class="col-md-9">
+            <select id="testResult" class="form-control" value.bind="booking.testResult">
+              <option selected>Select...</option>
+              <option>POSITIVE</option>
+              <option>NEGATIVE</option>
+            </select> 
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="status">Status</label>
+          <div class="col-md-9">
+            <select id="status" class="form-control" value.bind="booking.status">
+              <option selected>Select...</option>
+              <option>PENDING</option>
+              <option>CANCELLED</option>
+            </select>
+          </div>
+        </div>
+
+      </form>
+      <div>
+        <button class="btn btn-danger float-right" click.delegate="cancel(booking)" disabled.bind="!canSave">Cancel Booking</button>
+        <button class="btn btn-primary float-right" click.delegate="update(booking)" disabled.bind="!canSave">Update</button>
+      </div>
+    </div>
+  </div>
+</template>
+

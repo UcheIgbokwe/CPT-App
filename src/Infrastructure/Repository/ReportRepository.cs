@@ -26,11 +26,11 @@ namespace Infrastructure.Repository
 
                 var bookings =  _dbcontext.Bookings.AsEnumerable().GroupBy(x => new { x.LocationId }).Select(
                 g => 
-                    new { g.Key.LocationId, ActualBooking = g.Sum(x => x.Status == StatusModel.Pending ? 1 : 0), 
-                        CancelledBooking = g.Sum(x => x.Status == StatusModel.Cancelled ? 1 : 0), 
-                        CompletedBooking = g.Sum(x => x.Status == StatusModel.Closed ? 1 : 0),
-                        PositiveCases = g.Sum(x => x.TestResult == TestResultModel.Positive ? 1 : 0),
-                        NegativeCases = g.Sum(x => x.TestResult == TestResultModel.Negative ? 1 : 0),
+                    new { g.Key.LocationId, ActualBooking = g.Sum(x => x.Status.ToLower() == StatusModel.Pending ? 1 : 0), 
+                        CancelledBooking = g.Sum(x => x.Status.ToLower() == StatusModel.Cancelled ? 1 : 0), 
+                        CompletedBooking = g.Sum(x => x.Status.ToLower() == StatusModel.Closed ? 1 : 0),
+                        PositiveCases = g.Sum(x => x.TestResult.ToLower() == TestResultModel.Positive ? 1 : 0),
+                        NegativeCases = g.Sum(x => x.TestResult.ToLower() == TestResultModel.Negative ? 1 : 0),
                 }).ToList();
 
                 foreach (var item in bookings)

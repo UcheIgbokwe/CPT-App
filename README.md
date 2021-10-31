@@ -58,6 +58,8 @@ To begin booking on the application, Here are a few steps:
   `http://localhost:8080/locationList/`   
 * USERS can book for a test.
   `http://localhost:8080/booking/`  
+* Details about a booking are available on this page. Admin can select a booking and update the test result.
+  `http://localhost:8080/bookingList/`   
 * Reports on the available resources and necessary data
   `http://localhost:8080/report/`    
   

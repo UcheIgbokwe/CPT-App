@@ -3,24 +3,23 @@ import { observable } from "aurelia-framework";
 import {EventAggregator} from 'aurelia-event-aggregator';
 import Swal from 'sweetalert2';
 import { TestPortalAPI } from '../../api/agent';
-import { LocationViewed, LocationUpdated } from '../messages';
+import { BookingViewed, BookingUpdated } from '../messages';
 import {areEqual} from '../../helper/utility';
 
 
-interface Location {
-  id: number;
-  locationName: string;
-  availableSpace: number;
-  createdAt: Date;
-  userId: number;
+interface Booking {
+  email: string;
+  status: string;
+  testResult: string;
 }
 
+
 @autoinject
-export class LocationDetail {
+export class BookingDetail {
   routeConfig;
-  location: Location;
-  originalLocation: Location;
-  newLocation: Location;
+  booking: Booking;
+  originalBooking: Booking;
+  newBooking: Booking;
   @observable
   public currentLocale: string;
 
@@ -31,16 +30,16 @@ export class LocationDetail {
   activate(params, routeConfig) {
     this.routeConfig = routeConfig;
 
-    return this.api.getLocation(params.id).then(location => {
-      this.location = <Location>location;
-      this.routeConfig.navModel.setTitle(this.location.locationName);
-      this.originalLocation = JSON.parse(JSON.stringify(this.location));
-      this.ea.publish(new LocationViewed(this.location));
+    return this.api.getBooking(params.email).then(booking => {
+      this.booking = <Booking>booking;
+      this.routeConfig.navModel.setTitle(this.booking.email);
+      this.originalBooking = JSON.parse(JSON.stringify(this.booking));
+      this.ea.publish(new BookingViewed(this.booking));
     });
   }
 
   get canSave() {
-    return this.location.locationName && this.location.availableSpace && this.location.createdAt && this.location.id && this.location.userId && !this.api.isRequesting;
+    return this.booking.email && !this.api.isRequesting;
   }
 
   get canUpdate() {
@@ -58,16 +57,16 @@ export class LocationDetail {
       confirmButtonText: 'Yes, update it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        if (!areEqual(params, this.originalLocation)) {
-          return this.api.updateLocation(params).then(newLocation => {
-            this.newLocation = <Location>newLocation;
-            this.ea.publish(new LocationUpdated(this.newLocation));
+        if (!areEqual(params, this.originalBooking)) {
+          return this.api.updateBooking(params).then(newBooking => {
+            this.newBooking = <Booking>newBooking;
+            this.ea.publish(new BookingUpdated(this.booking));
             Swal.fire(
               'Updated!',
               'Your record has been updated.',
               'success'
             )
-            setTimeout(function(){location.replace("locationList/")}, 3000);
+            setTimeout(function(){location.replace("bookingList/")}, 3000);
           });
         }else{
           Swal.fire(
@@ -81,7 +80,7 @@ export class LocationDetail {
     })
   }
 
-  delete(params) {
+  cancel(params) {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -89,17 +88,17 @@ export class LocationDetail {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Yes, cancel it!'
     }).then((result) => {
       if (result.isConfirmed) {
         if (params !== undefined) {
-          return this.api.delete(params.id).then(responseMessage => {
+          return this.api.cancelBooking(params).then(responseMessage => {
             Swal.fire(
-              'Deleted!',
-              'Your record has been deleted.',
+              'Canceled!',
+              'Your booking has been cancelled.',
               'success'
             )
-            setTimeout(function(){location.replace("locationList/")}, 3000);
+            setTimeout(function(){location.replace("bookingList/")}, 3000);
           });
           
           
@@ -116,11 +115,11 @@ export class LocationDetail {
   }
 
   canDeactivate() {
-    if (!areEqual(this.originalLocation, this.location)) {
+    if (!areEqual(this.originalBooking, this.booking)) {
       let result = confirm('You have unsaved changes. Are you sure you wish to leave?');
 
       if (!result) {
-        this.ea.publish(new LocationViewed(this.location));
+        this.ea.publish(new BookingViewed(this.booking));
       }
       return result;
     }
