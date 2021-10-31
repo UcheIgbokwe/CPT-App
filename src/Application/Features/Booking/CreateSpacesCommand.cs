@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Application.Features.Booking
 {
-    public class CreateSpacesCommand : IRequest<bool>
+    public class CreateSpacesCommand : IRequest<LocationResponse>
     {
         public string LocationName { get; set; }
         public int AvailableSpace { get; set; }

@@ -12,6 +12,7 @@ using Application.Features.Booking;
 using Application.Mappings;
 using Domain.Models;
 using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
@@ -21,7 +22,7 @@ namespace Infrastructure.Repository
         {
         }
 
-        public async Task<bool> CreateSpaces(CreateSpacesCommand command)
+        public async Task<LocationResponse> CreateSpaces(CreateSpacesCommand command)
         {
             try
             {
@@ -40,9 +41,10 @@ namespace Infrastructure.Repository
                     }
 
                     await AddAsync(locationEntity);
+                    _dbcontext.SaveChanges();
                     transaction.Complete();
 
-                    return true;
+                    return locationEntity.ToSpaces();
                 }
                 catch (TransactionAbortedException ex)
                 {
@@ -54,14 +56,14 @@ namespace Infrastructure.Repository
                 throw new HandleDbException(ex.Message);
             }
         }
-        public bool UpdateSpaces(UpdateSpacesCommand command)
+        public async Task<LocationResponse> UpdateSpaces(UpdateSpacesCommand command)
         {
             try
             {
                 try
                 {
                     using var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-                    var user = _dbcontext.Users.Where(c => c.Id == command.UserId).FirstOrDefault();
+                    var user = await _dbcontext.Users.Where(c => c.Id == command.UserId).FirstOrDefaultAsync();
                     if(user == null)
                     {
                         throw new HttpStatusException(HttpStatusCode.NotFound, "User is invalid.");
@@ -78,6 +80,7 @@ namespace Infrastructure.Repository
                         locationDetail.CreatedAt = DateTime.Now;
 
                         Update(locationDetail);
+                        _dbcontext.SaveChanges();
                     }
                     else{
                         throw new HttpStatusException(HttpStatusCode.NotFound, "Location not found.");
@@ -85,7 +88,7 @@ namespace Infrastructure.Repository
                     
                     transaction.Complete();
 
-                    return true;
+                    return locationDetail.ToSpaces();
                 }
                 catch (TransactionAbortedException ex)
                 {

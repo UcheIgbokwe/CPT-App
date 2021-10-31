@@ -27,6 +27,7 @@ namespace Application.Contracts.Domain.Extensions
             newSpace.AvailableSpace = space.AvailableSpace;
             newSpace.CreatedAt = space.CreatedAt;
             newSpace.LocationName = space.LocationName;
+            newSpace.Id = space.Id;
 
             return newSpace;
         }

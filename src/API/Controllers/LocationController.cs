@@ -26,13 +26,13 @@ namespace API.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost("Create")]
-        public async Task<IActionResult> CreateSpaces([FromForm] CreateSpacesCommand command)
+        public async Task<IActionResult> CreateSpaces([FromBody] CreateSpacesCommand command)
         {
             try
             {
                 var result = await _mediator.Send(command);
 
-                return Created("", "");
+                return Created("", result);
             }
             catch (Exception ex)
             {
@@ -52,13 +52,13 @@ namespace API.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut("Update")]
-        public async Task<IActionResult> UpdateSpaces([FromForm] UpdateSpacesCommand command)
+        public async Task<IActionResult> UpdateSpaces([FromBody] UpdateSpacesCommand command)
         {
             try
             {
                 var result = await _mediator.Send(command);
 
-                return NoContent();
+                return Ok(result);
             }
             catch (Exception ex)
             {

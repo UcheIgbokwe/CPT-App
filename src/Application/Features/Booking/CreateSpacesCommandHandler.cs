@@ -12,25 +12,21 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Features.Booking
 {
-    public class CreateSpacesCommandHandler : IRequestHandler<CreateSpacesCommand, bool>
+    public class CreateSpacesCommandHandler : IRequestHandler<CreateSpacesCommand, LocationResponse>
     {
         private readonly ISpacesRepository _spaceRepository;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<CreateSpacesCommandHandler> _logger;
-        public CreateSpacesCommandHandler(ISpacesRepository spaceRepository, IUnitOfWork unitOfWork, ILogger<CreateSpacesCommandHandler> logger)
+        public CreateSpacesCommandHandler(ISpacesRepository spaceRepository, ILogger<CreateSpacesCommandHandler> logger)
         {
             _logger = logger;
-            _unitOfWork = unitOfWork;
             _spaceRepository = spaceRepository;
             
         }
-        public async Task<bool> Handle(CreateSpacesCommand command, CancellationToken cancellationToken)
+        public async Task<LocationResponse> Handle(CreateSpacesCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                bool locationResponse = await _spaceRepository.CreateSpaces(command);
-                await _unitOfWork.CompleteAsync();
-                return locationResponse;
+                return await _spaceRepository.CreateSpaces(command);
             }
             catch (Exception ex)
             {
