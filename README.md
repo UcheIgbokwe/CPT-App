@@ -23,11 +23,6 @@ If you don't have any, kindly install the following
 # API:
 To startup the API project, follow these steps:
 
-* Navigate to the [src.Infrastructure](src/Infrastructure) project folder
-  `cd src/Infrastructure`
-* Run the code below to create db migration. (Database has been pre-configured)
-  `dotnet ef migrations add Testing`  
-  `dotnet ef database update` 
 * Navigate to the [src.API](src/API) project folder
   `cd ..`
   `cd API`
