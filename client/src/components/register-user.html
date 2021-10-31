@@ -33,7 +33,7 @@
             class.bind="emailErrors.length ? 'has-error' : ''">
           <label class="col-md-3 col-form-label" for="email">Email</label>
           <div class="col-md-9">
-            <input type="email" class="form-control" class.bind="nameErrors.length ? 'has-error' : ''" id="email" 
+            <input type="email" class="form-control" class.bind="emailErrors.length ? 'has-error' : ''" id="email" 
                     value.bind="email & validate">
             <span class="help-block" repeat.for="errorInfo of emailErrors">
               ${errorInfo.error.message}
@@ -74,14 +74,13 @@
       </form>
       <div>
         <button class="btn btn-success float-right" click.delegate="create(firstName,lastName,email,gender,role)" disabled.bind="errors.length">Save</button>
-      </div>
-      <div>
+      
         <button class="btn btn-primary float-right" click.delegate="reset()" disabled.bind="!firstName && !lastName && !email && !gender && !role">Reset</button>
       </div>
     </div>
   </div>
 
-  <div>
+  <div class="mt-1">
     <table class="table table-striped" aurelia-table="data.bind: userList; display-data.bind: $displayData">
       <caption>Users</caption>
         <thead>

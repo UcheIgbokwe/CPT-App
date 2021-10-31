@@ -56,7 +56,6 @@ export class TestPortalAPI{
     })
     .catch(error => {
       this.isRequesting = false;
-      console.log(error);
       toastr.error(error, 'Error!');
       return [];
     });  
@@ -73,12 +72,49 @@ export class TestPortalAPI{
       this.isRequesting = false;
       return createdBooking;
     })
-    .catch(error => {
+    .catch(errorBooking => {
       this.isRequesting = false;
-      console.log(error);
-      toastr.error(error, 'Error!');
+      toastr.error(errorBooking, 'Error!');
       return [];
     });
   }
+
+  createLocation(locationDetails){
+    this.isRequesting = true;
+    return this.http.fetch('Location/Create', {
+      method: 'post',
+      body: json(locationDetails)
+    })
+    .then(response => response.json())
+    .then(createdLocation => {
+      this.isRequesting = false;
+      return createdLocation;
+    })
+    .catch(errorLocation => {
+      this.isRequesting = false;
+      toastr.error(errorLocation, 'Error!');
+      return [];
+    });
+  }
+
+  updateLocation(locationDetails){
+    this.isRequesting = true;
+    return this.http.fetch('Location/Update', {
+      method: 'put',
+      body: json(locationDetails)
+    })
+    .then(response => response.json())
+    .then(createdBooking => {
+      this.isRequesting = false;
+      return createdBooking;
+    })
+    .catch(errorUpdateLocation => {
+      this.isRequesting = false;
+      toastr.error(errorUpdateLocation, 'Error!');
+      return [];
+    });
+  }
+
+
 
 }

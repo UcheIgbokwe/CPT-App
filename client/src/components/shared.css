@@ -1,3 +1,10 @@
 .bg-primary {
   background-color: #76B835 !important;
 }
+
+.card-body
+ {
+  display: flex;
+  flex-direction: column;
+}
+

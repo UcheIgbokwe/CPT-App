@@ -9,3 +9,15 @@ export class BookingViewed {
 export class BookingCreated {
   constructor(public booking) { }
 }
+
+export class LocationUpdated {
+  constructor(public booking) { }
+}
+
+export class LocationViewed {
+  constructor(public booking) { }
+}
+
+export class LocationCreated {
+  constructor(public booking) { }
+}

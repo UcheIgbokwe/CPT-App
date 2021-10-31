@@ -4,29 +4,29 @@ import {EventAggregator} from 'aurelia-event-aggregator';
 import {ValidationControllerFactory, ValidationController, ValidationRules } from "aurelia-validation";
 import Swal from 'sweetalert2';
 import { TestPortalAPI } from './../api/agent';
+import { BookingCreated, LocationCreated } from './messages';
 import { BootstrapFormRenderer } from '../helper/bootstrap-form-renderer';
 
-interface User {
-  fullName: string;
-  gender: string;
-  email: string;
-  role: string;
+
+interface Location {
+  id: number;
+  locationName: string;
+  availableSpace: number;
+  createdAt: Date;
 }
 
-interface UserDto {
-  firstName: string;
-  lastName: string;
-  gender: string;
-  email: string;
-  role: string;
+interface LocationDTO {
+  locationName: string;
+  availableSpace: number;
+  createdAt: Date;
+  userId: number;
 }
 
 @autoinject
-export class UserDetail {
+export class LocationDetail {
   routeConfig;
-  userInfo: User;
-  originalUser: User;
-  userList;
+  location: Location;
+  originalLocation: Location;
   controller: ValidationController;
   @observable
   public currentLocale: string;
@@ -36,29 +36,29 @@ export class UserDetail {
     
     this.controller.addRenderer(new BootstrapFormRenderer());
     this.controller.addObject(this);
-    this.controller.reset({ object: this.userInfo, propertyName: 'user' });
-  
+    this.controller.reset({ object: this.location, propertyName: 'located' });
 
   }
 
-  // public bind() {
-  //   this.controller.validate();
-  // }
+  public bind() {
+    this.controller.validate();
+  }
 
-  create(p1,p2,p3,p4,p5) {
-    var newUser: UserDto = {
-      firstName: p1,
-      lastName:p2,
-      email:p3,
-      gender:p4,
-      role:p5,
+
+  create(p1,p2,p3,p4) {
+    var newLocation: LocationDTO = {
+      locationName: p1,
+      availableSpace:p2,
+      createdAt:p3,
+      userId:p4
     }
     this.controller.validate()
     .then((validate) => {
       if(validate.valid) {
-        return this.api.registerUser(newUser).then(userInfo => {
-          this.userInfo = <User>userInfo;
-          this.originalUser = JSON.parse(JSON.stringify(this.userInfo));
+        return this.api.createLocation(newLocation).then(location => {
+          this.location = <Location>location;
+          this.originalLocation = JSON.parse(JSON.stringify(this.location));
+          this.ea.publish(new LocationCreated(this.location));
           window.location.reload();
         });
       } else {
@@ -106,26 +106,17 @@ export class UserDetail {
     }
   }
 
-  bind() {
-    this.api.getUsers().then(userList => {
-      this.userList = userList;
-    });
-  }
 
 }
 
 ValidationRules
-  .ensure('email').required().email()
-  .withMessage('Valid Email must be provided.')
-  .ensure('firstName').required()
-  .withMessage('First Name must be provided.')
-  .ensure('lastName').required()
-  .withMessage('Last Name must be provided.')
-  .ensure('role').required()
-  .withMessage('Role must be provided.')
-  .ensure('gender').required()
-  .withMessage('Gender must be provided.')
-  .on(UserDetail);
+  .ensure('locationName').required()
+  .withMessage('Location Name must be provided.')
+  .ensure('availableSpace').required()
+  .withMessage('Available Space must be provided.')
+  .ensure('userId').required()
+  .withMessage('User ID must be provided.')
+  .on(LocationDetail);
   
   
 

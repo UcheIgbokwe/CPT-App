@@ -1,0 +1,64 @@
+<template>
+  <require from="./shared.css"></require>
+  <div class="card">
+    <div class="card-header text-white bg-primary">Location</div>
+    </div>
+    <div class="card-body">
+      <form role="form" validation-errors.bind="errors">
+        <div class="form-group row" validation-errors.bind="locationNameErrors"
+            class.bind="locationNameErrors.length ? 'has-error' : ''">
+          <label class="col-md-3 col-form-label" for="locationName">Location Name</label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" class.bind="locationNameErrors.length ? 'has-error' : ''" id="locationName" 
+                    value.bind="locationName & validate">
+            <span class="help-block" repeat.for="errorInfo of locationNameErrors">
+              ${errorInfo.error.message}
+            </span> 
+          </div>
+        </div>
+
+        <div class="form-group row" validation-errors.bind="availableSpaceErrors"
+            class.bind="availableSpaceErrors.length ? 'has-error' : ''">
+          <label class="col-md-3 col-form-label" for="availableSpace">Available Space</label>
+          <div class="col-md-9">
+            <input type="number" class="form-control" class.bind="availableSpaceErrors.length ? 'has-error' : ''" id="availableSpace"
+                    value.bind="availableSpace & validate">
+            <span class="help-block" repeat.for="errorInfo of availableSpaceErrors">
+              ${errorInfo.error.message}
+            </span> 
+          </div>
+        </div>
+
+        <div class="form-group row" validation-errors.bind="createdAtErrors"
+            class.bind="createdAtErrors.length ? 'has-error' : ''">
+          <label class="col-md-3 col-form-label" for="createdAt">Date</label>
+          <div class="col-md-9">
+            <input type="date" class="form-control" class.bind="createdAtErrors.length ? 'has-error' : ''" id="createdAt"
+                    value.bind="createdAt & validate">
+            <span class="help-block" repeat.for="errorInfo of createdAtErrors">
+              ${errorInfo.error.message}
+            </span> 
+          </div>
+        </div>
+
+        <div class="form-group row" validation-errors.bind="userIdErrors"
+            class.bind="userIdErrors.length ? 'has-error' : ''">
+          <label class="col-md-3 col-form-label" for="userId">User ID</label>
+          <div class="col-md-9">
+            <input type="number" class="form-control" class.bind="userIdErrors.length ? 'has-error' : ''" id="userId"
+                    value.bind="userId & validate">
+            <span class="help-block" repeat.for="errorInfo of userIdErrors">
+              ${errorInfo.error.message}
+            </span> 
+          </div>
+        </div>
+
+      </form>
+      <div>
+        <button class="btn btn-success float-right" click.delegate="create(locationName,availableSpace,createdAt,userId)" disabled.bind="errors.length">Save</button>
+        <button class="btn btn-primary float-right" click.delegate="reset()" disabled.bind="!locationName && !availableSpace && !createdAt && !userId">Reset</button>
+      </div>
+    </div>
+  </div>
+</template>
+

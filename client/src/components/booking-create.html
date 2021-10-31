@@ -7,9 +7,9 @@
       <form role="form" validation-errors.bind="errors">
         <div class="form-group row" validation-errors.bind="emailErrors"
             class.bind="emailErrors.length ? 'has-error' : ''">
-          <label class="col-md-3 col-form-label" for="email" t="[prepend]email">Email</label>
+          <label class="col-md-3 col-form-label" for="email">Email</label>
           <div class="col-md-9">
-            <input type="email" class="form-control" class.bind="nameErrors.length ? 'has-error' : ''" id="email" 
+            <input type="email" class="form-control" class.bind="emailErrors.length ? 'has-error' : ''" id="email" 
                     value.bind="email & validate">
             <span class="help-block" repeat.for="errorInfo of emailErrors">
               ${errorInfo.error.message}
@@ -19,7 +19,7 @@
 
         <div class="form-group row" validation-errors.bind="locationIdErrors"
             class.bind="locationIdErrors.length ? 'has-error' : ''">
-          <label class="col-md-3 col-form-label" for="locationId" t="[prepend]locationId">Location ID</label>
+          <label class="col-md-3 col-form-label" for="locationId">Location ID</label>
           <div class="col-md-9">
             <input type="number" class="form-control" class.bind="locationIdErrors.length ? 'has-error' : ''" id="locationId"
                     value.bind="locationId & validate">
@@ -31,7 +31,7 @@
 
         <div class="form-group row" validation-errors.bind="testTypeErrors"
             class.bind="testTypeErrors.length ? 'has-error' : ''">
-          <label class="col-md-3 col-form-label" for="testType" t="[prepend]testType">Test Type</label>
+          <label class="col-md-3 col-form-label" for="testType">Test Type</label>
           <div class="col-md-9">
             <select id="testType" class="form-control" class.bind="testTypeErrors.length ? 'has-error' : ''" value.bind="testType & validate">
               <option selected>Select...</option>
@@ -46,7 +46,7 @@
 
         <div class="form-group row" validation-errors.bind="testDateErrors"
             class.bind="testDateErrors.length ? 'has-error' : ''">
-          <label class="col-md-3 col-form-label" for="testDate" t="[prepend]testDate">Test Date</label>
+          <label class="col-md-3 col-form-label" for="testDate">Test Date</label>
           <div class="col-md-9">
             <input type="date" class="form-control" class.bind="testDateErrors.length ? 'has-error' : ''" id="testDate"
                     value.bind="testDate & validate">
@@ -58,44 +58,10 @@
 
       </form>
       <div>
-        <button class="btn btn-success float-right" click.delegate="create(email,locationId,testType,testDate)" disabled.bind="errors.length" t="[prepend]save">Save</button>
-      </div>
-      <div>
-        <button class="btn btn-primary float-right" click.delegate="reset()" disabled.bind="!email && !locationId && !testType && !testDate" t="[prepend]reset">Reset</button>
+        <button class="btn btn-success float-right" click.delegate="create(email,locationId,testType,testDate)" disabled.bind="errors.length">Save</button>
+        <button class="btn btn-primary float-right" click.delegate="reset()" disabled.bind="!email && !locationId && !testType && !testDate">Reset</button>
       </div>
     </div>
   </div>
-
-  <div>
-    <table class="table table-striped" aurelia-table="data.bind: users; display-data.bind: $displayData">
-      <caption>Users</caption>
-        <thead>
-        <tr>
-            <th id="name" aut-sort="key.bind: nameLength">LocationName</th>
-            <th id="capacity" aut-sort="key: capacity; default: desc">Capacity</th>
-            <th id="actualBooking">Actual Booking</th>
-            <th id="cancelledBooking">Cancelled Booking</th>
-            <th id="completedBooking">Completed Booking</th>
-            <th id="positiveCases" aut-sort="key: positiveCases; default: desc">Positive Cases</th>
-            <th id="negativeCases" aut-sort="key: negativeCases; default: desc">Negative Cases</th>
-            <th id="createdAt" aut-sort="custom.bind: dateSort">Date Created</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr repeat.for="report of $displayData">
-            <td>${report.locationName}</td>
-            <td>${report.capacity}</td>
-            <td>${report.actualBooking}</td>
-            <td>${report.cancelledBooking}</td>
-            <td>${report.completedBooking}</td>
-            <td>${report.positiveCases}</td>
-            <td>${report.negativeCases}</td>
-            <td>${report.createdAt}</td>
-        </tr>
-        </tbody>
-    </table>
-  </div>
-
-  
 </template>
 
