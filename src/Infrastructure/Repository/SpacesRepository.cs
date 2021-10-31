@@ -100,11 +100,11 @@ namespace Infrastructure.Repository
                 throw new HandleDbException(ex.Message);
             }
         }
-        public async Task<LocationResponse2> GetSpaces(int Id)
+        public async Task<LocationResponseII> GetSpace(int Id)
         {
             try
             {
-                var location =  await _dbcontext.LocationDetails.Where(c => c.Id == Id).Select( s => new LocationResponse2()
+                var location =  await _dbcontext.LocationDetails.Where(c => c.Id == Id).Select( s => new LocationResponseII()
                 {
                     Id = s.Id,
                     LocationName = s.LocationName,
@@ -113,6 +113,26 @@ namespace Infrastructure.Repository
                     UserId = s.CreatedBy
                     
                 }).FirstOrDefaultAsync();
+
+                return location;
+            }
+            catch (Exception ex)
+            {
+                throw new HandleDbException(ex.Message);
+            }
+        }
+        public async Task<IEnumerable<LocationResponse>> GetSpaces()
+        {
+            try
+            {
+                var location =  await _dbcontext.LocationDetails.Select( s => new LocationResponse()
+                {
+                    Id = s.Id,
+                    LocationName = s.LocationName,
+                    AvailableSpace = s.AvailableSpace,
+                    CreatedAt = s.CreatedAt
+                    
+                }).ToListAsync();
 
                 return location;
             }

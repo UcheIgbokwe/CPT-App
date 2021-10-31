@@ -13,6 +13,8 @@ export class TestPortalAPI{
       config.withBaseUrl(baseUrl);
     })
   }
+
+  //Report
   getData(){
     this.isRequesting = true;
     return this.http.fetch('Report')
@@ -28,6 +30,7 @@ export class TestPortalAPI{
     });  
   }
 
+  //Users
   getUsers(){
     this.isRequesting = true;
     return this.http.fetch('User')
@@ -61,6 +64,7 @@ export class TestPortalAPI{
     });  
   }
 
+  //Bookings
   createBooking(booking){
     this.isRequesting = true;
     return this.http.fetch('Booking/CreateBooking', {
@@ -77,6 +81,22 @@ export class TestPortalAPI{
       toastr.error(errorBooking, 'Error!');
       return [];
     });
+  }
+
+  //Location
+  getAllLocations(){
+    this.isRequesting = true;
+    return this.http.fetch('Location')
+      .then(response => response.json())
+      .then(locationList => {
+        this.isRequesting = false;
+        return locationList;
+      })
+    .catch(errorLogAllLocation => {
+      this.isRequesting = false
+      toastr.error(errorLogAllLocation, 'Error!')
+      return [];
+    });  
   }
 
   createLocation(locationDetails){

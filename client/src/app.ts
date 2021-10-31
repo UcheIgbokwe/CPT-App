@@ -18,7 +18,8 @@ export class App {
       { route: 'booking/',       moduleId: PLATFORM.moduleName('./components/bookings/booking-create'), name:'bookings' },
       { route: 'report/',        moduleId: PLATFORM.moduleName('./components/reports/reports-list'), name:'reports' },
       { route: 'location/',      moduleId: PLATFORM.moduleName('./components/location/location-create'), name:'locations' },
-      { route: 'location/:id',   moduleId: PLATFORM.moduleName('./components/location/location-detail'), name:'location' }
+      { route: 'location/:id',   moduleId: PLATFORM.moduleName('./components/location/location-detail'), name:'location' },
+      { route: 'locationList/',   moduleId: PLATFORM.moduleName('./components/location/location-list'), name:'locationList' }
     ]);
 
     this.router = router;

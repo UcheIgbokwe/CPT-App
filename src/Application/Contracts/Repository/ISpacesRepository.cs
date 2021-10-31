@@ -11,7 +11,8 @@ namespace Application.Contracts.Repository
     {
         Task<LocationResponse> CreateSpaces(CreateSpacesCommand command);
         Task<LocationResponse> UpdateSpaces(UpdateSpacesCommand command);
-        Task<LocationResponse2> GetSpaces(int Id);
+        Task<LocationResponseII> GetSpace(int Id);
+        Task<IEnumerable<LocationResponse>> GetSpaces();
         
     }
 }

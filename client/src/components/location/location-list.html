@@ -1,0 +1,15 @@
+<template>
+  <div class="location-list">
+    <div class="list-group">
+      <a repeat.for="location of locations" class="list-group-item list-group-item-action ${location.id === $parent.selectedId ? 'active' : ''}" route-href="route: location; params.bind: {id:location.id}" click.delegate="$parent.select(location)">
+        <strong><h4>Location Name</h4>${location.locationName}  </strong><br>
+        <div>
+          <footer class="blockquote-footer"></footer>
+        </div>
+        <strong><h6>Available Space</h6>${location.availableSpace}</strong>
+        
+      </a>
+    </div>
+  </div>
+</template>
+

@@ -54,8 +54,8 @@ To begin booking on the application, Here are a few steps:
   `http://localhost:8080/`  
 * The ADMIN can create a new location or update a location and available spaces.
   `http://localhost:8080/location/`  
-* Details about a location are available on this page.
-  `http://localhost:8080/location/`   
+* Details about a location are available on this page. Admin can select a location and update.
+  `http://localhost:8080/locationList/`   
 * USERS can book for a test.
   `http://localhost:8080/booking/`  
 * Reports on the available resources and necessary data

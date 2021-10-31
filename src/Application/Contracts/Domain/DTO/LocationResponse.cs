@@ -13,7 +13,7 @@ namespace Application.Contracts.Domain.DTO
         public DateTime CreatedAt { get; set; }
     }
 
-    public class LocationResponse2
+    public class LocationResponseII
     {
         public int Id { get; set; }
         public string LocationName { get; set; }

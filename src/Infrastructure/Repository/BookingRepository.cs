@@ -12,6 +12,7 @@ using Application.Features.Booking;
 using Application.Mappings;
 using Domain.Models;
 using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
@@ -122,6 +123,43 @@ namespace Infrastructure.Repository
                 {
                     throw new InvalidResponseException(ex.Message);
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new HandleDbException(ex.Message);
+            }
+        }
+        public async Task<BookingResponseII> GetBooking(string email)
+        {
+            try
+            {
+                var booking =  await _dbcontext.Bookings.Where(c => c.Email == email).Select( s => new BookingResponseII()
+                {
+                    Email = s.Email,
+                    Status = s.Status,
+                    TestResult = s.TestResult
+                }).FirstOrDefaultAsync();
+
+                return booking;
+            }
+            catch (Exception ex)
+            {
+                throw new HandleDbException(ex.Message);
+            }
+        }
+        public async Task<IEnumerable<BookingResponseII>> GetBookings()
+        {
+            try
+            {
+                var booking =  await _dbcontext.Bookings.Select( s => new BookingResponseII()
+                {
+                    Email = s.Email,
+                    Status = s.Status,
+                    TestResult = s.TestResult
+                    
+                }).ToListAsync();
+
+                return booking;
             }
             catch (Exception ex)
             {

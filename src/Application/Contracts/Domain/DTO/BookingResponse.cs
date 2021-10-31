@@ -14,4 +14,11 @@ namespace Application.Contracts.Domain.DTO
         public string TestType { get; set; }
         public DateTime TestDate { get; set; } 
     }
+
+    public class BookingResponseII
+    {
+        public string Email { get; set; }
+        public string Status { get; set; }
+        public string TestResult { get; set; }
+    }
 }

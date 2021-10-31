@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Behaviours;
 using Application.Contracts.Domain.DTO;
@@ -17,6 +18,57 @@ namespace API.Controllers
         public LocationController(IMediator mediator)
         {
             _mediator = mediator;
+            
+        }
+
+        /// <summary>
+        /// Returns all Locations.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<LocationResponse>), statusCode: 200)]
+        public async Task<IActionResult> GetAllLocations()
+        {
+            try
+            {
+                var result =  await _mediator.Send(new GetLocationsQuery());
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                if (ex is HttpStatusException httpException)
+                {
+                    return StatusCode((int) httpException.Status, httpException.Message);
+                }else{
+                    return BadRequest(ex.Message);
+                }
+            }
+            
+        }
+
+        /// <summary>
+        /// Returns a location.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            try
+            {
+                var result =  await _mediator.Send(new GetLocationQuery(id));
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                if (ex is HttpStatusException httpException)
+                {
+                    return StatusCode((int) httpException.Status, httpException.Message);
+                }else{
+                    return BadRequest(ex.Message);
+                }
+            }
             
         }
 
@@ -72,29 +124,6 @@ namespace API.Controllers
             
         }
 
-        /// <summary>
-        /// Returns a location.
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
-        {
-            try
-            {
-                var result =  await _mediator.Send(new GetLocationQuery(id));
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                if (ex is HttpStatusException httpException)
-                {
-                    return StatusCode((int) httpException.Status, httpException.Message);
-                }else{
-                    return BadRequest(ex.Message);
-                }
-            }
-            
-        }
+        
     }
 }

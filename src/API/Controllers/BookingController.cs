@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Behaviours;
 using Application.Contracts.Domain.DTO;
@@ -19,6 +20,59 @@ namespace API.Controllers
             _mediator = mediator;
             
         }
+
+
+        /// <summary>
+        /// Returns all Bookings.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<BookingResponseII>), statusCode: 200)]
+        public async Task<IActionResult> GetAllBookings()
+        {
+            try
+            {
+                var result =  await _mediator.Send(new GetBookingsQuery());
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                if (ex is HttpStatusException httpException)
+                {
+                    return StatusCode((int) httpException.Status, httpException.Message);
+                }else{
+                    return BadRequest(ex.Message);
+                }
+            }
+            
+        }
+
+        /// <summary>
+        /// Returns a booking.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("{email}")]
+        public async Task<IActionResult> Get(string email)
+        {
+            try
+            {
+                
+                var result =  await _mediator.Send(new GetBookingQuery(email));
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                if (ex is HttpStatusException httpException)
+                {
+                    return StatusCode((int) httpException.Status, httpException.Message);
+                }else{
+                    return BadRequest(ex.Message);
+                }
+            }
+            
+        } 
 
         /// <summary>
         /// Create Booking on the management portal.

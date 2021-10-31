@@ -7,13 +7,8 @@ using MediatR;
 
 namespace Application.Features.Booking
 {
-    public class GetLocationQuery : IRequest<LocationResponseII>
+    public class GetLocationsQuery : IRequest<IEnumerable<LocationResponse>>
     {
-        public int Id { get; set; }
-
-        public GetLocationQuery(int id)
-        {
-            Id = id;
-        }
+        
     }
 }

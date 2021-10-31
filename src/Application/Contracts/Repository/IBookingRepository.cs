@@ -12,5 +12,7 @@ namespace Application.Contracts.Repository
         Task<BookingResponse> CreateBooking(CreateBookingCommand command);
         bool CancelBooking(CancelBookingCommand command);
         bool UpdateTestResult(UpdateTestCommand command);
+        Task<BookingResponseII> GetBooking(string email);
+        Task<IEnumerable<BookingResponseII>> GetBookings();
     }
 }
