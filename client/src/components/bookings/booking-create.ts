@@ -62,7 +62,7 @@ export class BookingDetail {
           this.booking = <Booking>booking;
           this.originalBooking = JSON.parse(JSON.stringify(this.booking));
           this.ea.publish(new BookingCreated(this.booking));
-          setTimeout(function(){location.replace("bookingList/")}, 3000);
+          setTimeout(function(){window.location.replace("bookingList/")}, 1000);
         });
       } else {
         console.log('E no enter');

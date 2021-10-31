@@ -33,11 +33,19 @@ namespace API
             {
                 Log.Information("Starting web host");
                 var host = CreateHostBuilder(args).Build();
-                host.MigrateDatabase<DataContext>((context, services) => 
+                using (var scope = host.Services.CreateScope())
                 {
-                    var logger = services.GetService<ILogger<DataContextSeed>>();
-                    DataContextSeed.SeedAsync(context, logger).Wait();
-                });
+                    var services = scope.ServiceProvider;
+                    var context = services.GetRequiredService<DataContext>();
+                    var logger = services.GetService<ILogger<DataGenerator>>();
+
+                    DataGenerator.Initialize(services,logger);
+                }
+                // host.MigrateDatabase<DataContext>((context, services) => 
+                // {
+                //     var logger = services.GetService<ILogger<DataContextSeed>>();
+                //     DataContextSeed.SeedAsync(context, logger).Wait();
+                // });
                 host.Run();
             }
             catch (Exception ex)
@@ -49,7 +57,6 @@ namespace API
                 Log.CloseAndFlush();
             }
         }
-
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseSerilog()

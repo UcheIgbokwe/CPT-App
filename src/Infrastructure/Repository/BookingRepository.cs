@@ -29,7 +29,7 @@ namespace Infrastructure.Repository
                 try
                 {
                     using var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-                    var user = await _dbcontext.Users.Where(c => c.Email == command.Email).FirstOrDefaultAsync();
+                    var user = await _dbcontext.Users.Where(c => c.Email.ToLower() == command.Email).FirstOrDefaultAsync();
 
                     if(user == null)
                     {
@@ -41,7 +41,7 @@ namespace Infrastructure.Repository
                     }
 
                     //check if user has existing open booking.
-                    var existingBooking = _dbcontext.Bookings.Where(c => c.Email == user.Email && c.Status.ToLower() == StatusModel.Pending).FirstOrDefault();
+                    var existingBooking = _dbcontext.Bookings.Where(c => c.Email.ToLower() == user.Email && c.Status.ToLower() == StatusModel.Pending).FirstOrDefault();
 
                     if(existingBooking == null)
                     {
@@ -80,7 +80,7 @@ namespace Infrastructure.Repository
                 try
                 {
                     using var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-                    var user = _dbcontext.Users.Where(c => c.Email == bookEntity.Email).FirstOrDefault();
+                    var user = _dbcontext.Users.Where(c => c.Email.ToLower() == bookEntity.Email).FirstOrDefault();
 
                     if(user == null)
                     {
@@ -104,7 +104,7 @@ namespace Infrastructure.Repository
                     }
 
                     //check if user has existing open booking.
-                    var existingBooking = _dbcontext.Bookings.Where(c => c.Email == user.Email && c.Status.ToLower() == StatusModel.Pending).FirstOrDefault();
+                    var existingBooking = _dbcontext.Bookings.Where(c => c.Email.ToLower() == user.Email && c.Status.ToLower() == StatusModel.Pending).FirstOrDefault();
 
                     if(existingBooking != null)
                     {
@@ -134,7 +134,7 @@ namespace Infrastructure.Repository
         {
             try
             {
-                var booking =  await _dbcontext.Bookings.Where(c => c.Email == email).Select( s => new BookingResponseII()
+                var booking =  await _dbcontext.Bookings.Where(c => c.Email.ToLower() == email).Select( s => new BookingResponseII()
                 {
                     Email = s.Email,
                     Status = s.Status,
@@ -174,7 +174,7 @@ namespace Infrastructure.Repository
                 try
                 {
                     using var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-                    var user = await _dbcontext.Users.Where(c => c.Email == command.Email).FirstOrDefaultAsync();
+                    var user = await _dbcontext.Users.Where(c => c.Email.ToLower() == command.Email).FirstOrDefaultAsync();
 
                     if(user == null)
                     {
@@ -182,7 +182,7 @@ namespace Infrastructure.Repository
                     }
 
                     //check if user has existing open booking.
-                    var existingBooking = _dbcontext.Bookings.Where(c => c.Email == user.Email && c.Status.ToLower() == StatusModel.Pending).FirstOrDefault();
+                    var existingBooking = _dbcontext.Bookings.Where(c => c.Email.ToLower() == user.Email && c.Status.ToLower() == StatusModel.Pending).FirstOrDefault();
 
                     if(existingBooking == null)
                     {

@@ -67,7 +67,7 @@ export class LocationDetail {
               'Your record has been updated.',
               'success'
             )
-            setTimeout(function(){location.replace("locationList/")}, 3000);
+            setTimeout(function(){location.replace("locationList/")}, 1000);
           });
         }else{
           Swal.fire(

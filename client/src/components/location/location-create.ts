@@ -59,7 +59,9 @@ export class LocationDetail {
           this.location = <Location>location;
           this.originalLocation = JSON.parse(JSON.stringify(this.location));
           this.ea.publish(new LocationCreated(this.location));
-          setTimeout(function(){location.replace("locationList/")}, 3000);
+          setTimeout(function(){window.location.replace("locationList/")}, 1000);
+
+          
         });
       } else {
         console.log('E no enter');

@@ -33,9 +33,11 @@ namespace API
         {
             services.AddCors(opt => opt.AddPolicy("CorsPolicy", policy => policy.AllowAnyHeader().AllowAnyMethod().WithExposedHeaders("WWW-Authenticate").WithOrigins("http://localhost:8080").AllowCredentials()));
 
-            var configs = Configuration.GetSection("ConnectionStrings");
-            services.Configure<ConnectionStrings>(configs);
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionStrings:DefaultConnectionString").Value));
+            // var configs = Configuration.GetSection("ConnectionStrings");
+            // services.Configure<ConnectionStrings>(configs);
+            // services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionStrings:DefaultConnectionString").Value));
+
+            services.AddDbContext<DataContext>(options => options.UseInMemoryDatabase(Configuration.GetSection("EntityFramework:databaseName").Value));
 
             services.AddScoped<DbContext, DataContext>();
             services.AddControllers();

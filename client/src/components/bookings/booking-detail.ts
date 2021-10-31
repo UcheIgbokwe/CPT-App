@@ -66,7 +66,7 @@ export class BookingDetail {
               'Your record has been updated.',
               'success'
             )
-            setTimeout(function(){location.replace("bookingList/")}, 3000);
+            setTimeout(function(){location.replace("bookingList/")}, 1000);
           });
         }else{
           Swal.fire(
@@ -98,7 +98,7 @@ export class BookingDetail {
               'Your booking has been cancelled.',
               'success'
             )
-            setTimeout(function(){location.replace("bookingList/")}, 3000);
+            setTimeout(function(){location.replace("bookingList/")}, 1000);
           });
           
           
